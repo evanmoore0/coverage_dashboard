@@ -3,6 +3,8 @@ console.log("HIII ")
 const express = require("express"); //Line 1
 const app = express(); //Line 2
 const path = require("path");
+var cors = require('cors')
+
 
 const PORT = process.env.PORT || 8000;
 
@@ -45,6 +47,8 @@ const jobLinks = [
 // var cors = require('cors')
 
 // app.use(cors());
+app.use(cors())
+
 
 // Connect to build
 app.use(express.static(path.join(__dirname, "client/build")));
