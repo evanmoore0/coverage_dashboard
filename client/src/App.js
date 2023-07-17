@@ -17,14 +17,19 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function test() {
-    const response = await fetch("/api/test")
-      .then(res => {
+    const response = await fetch("/api/test", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+      .then((res) => {
         console.log("RES")
         console.log(res)
         res.json()
       })
-      .then(data => {console.log(data)})
-      .catch(err => {
+      .then((data) => {console.log(data)})
+      .catch((err) => {
         console.log("error")
         console.log(err)
         console.log(err.code)
