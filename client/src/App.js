@@ -18,7 +18,7 @@ function App() {
 
   async function test() {
     const response = await fetch("/api/test")
-      .then(res => resxw.json())
+      .then(res => res.json())
       .then(data => {console.log(data)})
       .catch(err => {
         console.log("error")
