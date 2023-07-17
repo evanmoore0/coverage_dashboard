@@ -52,31 +52,41 @@ function App() {
   }
 
   async function getRatings() {
-    const response = await fetch("/api/ratings").catch((err) => {
-      console.log("error in fetch");
-      console.log(err.message);
-      console.log(err.code);
-    });
+    const response = await fetch("/api/ratings")
+    .then(async function (res) {
+      console.log("RES")
+      console.log(res)
+      return await res.json()
+    })
 
-    // Add try catch to line below
+    console.log("RESPONSE")
+    console.log(response)
+    return response
+    // const response = await fetch("/api/ratings").catch((err) => {
+    //   console.log("error in fetch");
+    //   console.log(err.message);
+    //   console.log(err.code);
+    // });
 
-    const body = await response.json().catch((err) => {
-      console.log("error in body");
-      console.log(err.message);
-      console.log(err.code);
-    });
-    console.log("body");
-    console.log(body);
+    // // Add try catch to line below
 
-    // if (response.status !== 200) {
-    //   throw Error(body.message);
-    // }
-    return body;
+    // const body = await response.json().catch((err) => {
+    //   console.log("error in body");
+    //   console.log(err.message);
+    //   console.log(err.code);
+    // });
+    // console.log("body");
+    // console.log(body);
+
+    // // if (response.status !== 200) {
+    // //   throw Error(body.message);
+    // // }
+    // return body;
   }
 
-  useEffect(() => {
-    test();
-  }, []);
+  // useEffect(() => {
+  //   test();
+  // }, []);
 
   async function getOpenings() {
     const response = await fetch("/openings");
