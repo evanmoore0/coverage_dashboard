@@ -8,17 +8,25 @@ const PORT = process.env.PORT || 5001;
 // app.use(express.static(path.join(__dirname, "public")));
 //   .set('views', path.join(__dirname, 'views'))
 //   .set('view engine', 'ejs')
-app
-  .get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"))
+
+app.use('/static', express.static(path.join(__dirname, '/client/build')))
+
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/client/build/index.html"), function (err) {
+        if(err) {
+            console.log("EERRR")
+            console.log(err);
+        }
+    })
   })
-  .use('/static', express.static(path.join(__dirname, '/client/build')))
 //   .get("/", (req, res) => res.render("pages/index"))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+//   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 //   app.get("*", (req, res) => {
 //     res.sendFile(path.join(__dirname, "client/build/index.html"));
-// })
+// }) https://final-dashboard-15ef7bba4916.herokuapp.com/
+// https://final-dashboard-15ef7bba4916.herokuapp.com/
 
 const glassDoorLinks = {
   ANET: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
