@@ -20,7 +20,7 @@ function App() {
     const response = await fetch("/api/test")
     .then(async function (res) {
       console.log("RES")
-      console.log(res.body())
+      // console.log(res.body())
       return await res.json()
     })
 
