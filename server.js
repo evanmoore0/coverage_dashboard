@@ -10,8 +10,9 @@ const PORT = process.env.PORT || 5001;
 //   .set('view engine', 'ejs')
 app
   .get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"));
+    res.sendFile(path.join(__dirname, "client/build/index.html"))
   })
+  .use('/static', express.static(path.join(__dirname, '/client/build')))
 //   .get("/", (req, res) => res.render("pages/index"))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
