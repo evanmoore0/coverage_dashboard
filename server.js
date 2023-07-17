@@ -109,15 +109,16 @@ app.get("/api/ratings", async (req, res) => {
         .build();
 
         // Get the link
-      await driver.get(glassDoorLinks[key]);
+
+    //   await driver.get(glassDoorLinks[key]);
 
       // Get ratings
-      const rating = await driver
-        .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
-        .getText();
+    //   const rating = await driver
+    //     .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+    //     .getText();
 
-      console.log("Push " + key + " to ratings... " + rating);
-      ratings.push({ Company: key, Rating: rating });
+    //   console.log("Push " + key + " to ratings... " + rating);
+    //   ratings.push({ Company: key, Rating: rating });
       await driver.quit();
 
     }
