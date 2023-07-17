@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5001;
 //   .set('views', path.join(__dirname, 'views'))
 //   .set('view engine', 'ejs')
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 app.use('/static', express.static(path.join(__dirname, './client/build')))
 
 
@@ -21,6 +21,11 @@ app.get("*", (req, res) => {
         }
     })
   })
+
+  app.listen(PORT, err => {
+    if (err) console.info(`Error: The server failed to start on ${PORT}`);
+    else console.info(`****** Node server is running on ${PORT} ******`);
+  });
 
 
 //   .get("/", (req, res) => res.render("pages/index"))
