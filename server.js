@@ -1,3 +1,9 @@
+//
+//    // "server": "nodemon server.js",
+    // "client": "npm start --prefix client",
+    // "dev": "concurrently \"npm run server\" \"npm run client\"",
+    // "build": "npm run build --prefix client",
+
 const express = require("express"); //Line 1
 const app = express(); //Line 2
 // import { jobLinks, glassDoorLinks, capabilities, gridUrl } from "./constants";
@@ -10,6 +16,12 @@ const PORT = process.env.PORT || 5001;
 //   .set('view engine', 'ejs')
 
 // app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+const fs = require('fs');
+const path = require('path');
+
+//Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use('/static', express.static(path.join(__dirname, './client/build')))
 
 
