@@ -25,7 +25,7 @@ function App() {
     })
       .then((res) => {
         console.log("RES")
-        console.log(res)
+        console.log(res.body())
         res.json()
       })
       .then((data) => {console.log(data)})
