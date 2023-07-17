@@ -18,12 +18,14 @@ function App() {
 
   async function test() {
     const response = await fetch("/api/test")
-      .then(res => res.body.json())
+      .then(res => resxw.json())
       .then(data => {console.log(data)})
       .catch(err => {
         console.log("error")
         console.log(err)
       });
+
+    // console.log(response)
     // const body = await response.json().catch((err) => {
     //   console.log("error in body")
     //   console.log(err.message)
