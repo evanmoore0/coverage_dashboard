@@ -17,12 +17,10 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function test() {
-    const response = await fetch("/api/test").catch((err) => {
-      console.log("error in fetch")
-      console.log(err.message)
-      console.log(err.code)
-    })
-
+    const response = await fetch("/api/test")
+      .then(res => res.json())
+      .then(data => {console.log(data)})
+      .catch(err => {console.log(err)});
     // const body = await response.json().catch((err) => {
     //   console.log("error in body")
     //   console.log(err.message)
@@ -31,27 +29,26 @@ function App() {
 
     // console.log("body")
     // console.log(body)
-    console.log("response")
-    console.log(response)
-
+    console.log("response");
+    console.log(response);
   }
 
   async function getRatings() {
     const response = await fetch("/api/ratings").catch((err) => {
-      console.log("error in fetch")
-      console.log(err.message)
-      console.log(err.code)
+      console.log("error in fetch");
+      console.log(err.message);
+      console.log(err.code);
     });
 
     // Add try catch to line below
 
     const body = await response.json().catch((err) => {
-      console.log("error in body")
-      console.log(err.message)
-      console.log(err.code)
-    })
-    console.log("body")
-    console.log(body)
+      console.log("error in body");
+      console.log(err.message);
+      console.log(err.code);
+    });
+    console.log("body");
+    console.log(body);
 
     // if (response.status !== 200) {
     //   throw Error(body.message);
@@ -60,8 +57,8 @@ function App() {
   }
 
   useEffect(() => {
-    test()
-  }, [])
+    test();
+  }, []);
 
   async function getOpenings() {
     const response = await fetch("/openings");
@@ -122,7 +119,8 @@ function App() {
       .finally(() => {
         console.log("Loading done");
         setNewsLoading(false);
-  })};
+      });
+  };
 
   return (
     <div className="App">
@@ -248,8 +246,6 @@ function App() {
               </div>
             ))
           )}
-
-          
         </div>
       </main>
     </div>
