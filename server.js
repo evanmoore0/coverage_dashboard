@@ -79,8 +79,6 @@ const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
 
-
-
    // Chrome options
     // chrome_options = await new webdriver.chrome.Options();
     // chrome_options.addArguments("--window-size=1920,1080");
@@ -104,7 +102,7 @@ app.get("/api/ratings", async (req, res) => {
 
    // Loop through each company
     for (const key in glassDoorLinks) {
-      let driver = await new Builder()
+      let driver = await new webdriver.Builder()
         .usingServer(gridUrl)
         .withCapabilities(capability)
         .build()
@@ -114,7 +112,7 @@ app.get("/api/ratings", async (req, res) => {
 
       // Get ratings
       const rating = await driver
-        .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+        .findElement(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
         .getText();
 
       console.log("Push " + key + " to ratings... " + rating);
@@ -132,74 +130,77 @@ app.get("/api/ratings", async (req, res) => {
 // Job Openings Point
 app.get("/api/openings", async (req, res) => {
   // Import selenium
-  const { Builder, By } = require("selenium-webdriver");
+//   const { Builder, By } = require("selenium-webdriver");
 
   console.log("Starting Job Openings...");
 
+  res.send({ express: "hi" })
+
   // store openings
-  let job_openings = [];
+//   let job_openings = [];
 
-  // Loop through each company
-  for (const company of jobLinks) {
-    console.log(company);
+//   // Loop through each company
+//   for (const company of jobLinks) {
+//     console.log(company);
 
-    // Skip if not ready
-    if (!company["ready"]) {
-      console.log("Skipping " + company["ticker"] + "...");
-      continue;
-    }
+//     // Skip if not ready
+//     if (!company["ready"]) {
+//       console.log("Skipping " + company["ticker"] + "...");
+//       continue;
+//     }
 
-    console.log("Starting " + company.ticker + "...");
+//     console.log("Starting " + company.ticker + "...");
 
-    let driver = await new Builder().forBrowser("chrome").build();
+//     let driver = await new Builder().forBrowser("chrome").build();
 
-    console.log("getting link ");
+//     console.log("getting link ");
 
-    await driver.get(company["link"]);
+//     await driver.get(company["link"]);
 
-    if (company["ticker"] === "CSCO") {
-      const csco_openings = await driver
-        .findElement(By.xpath, "//*[@id='js-calculateTotal']")
-        .click();
+//     if (company["ticker"] === "CSCO") {
+//       const csco_openings = await driver
+//         .findElement(By.xpath, "//*[@id='js-calculateTotal']")
+//         .click();
 
-      console.log("Opening for CSCO : " + csco_openings);
+//       console.log("Opening for CSCO : " + csco_openings);
 
-      job_openings.push({
-        Company: company["ticker"],
-        Openings: csco_openings,
-      });
+//       job_openings.push({
+//         Company: company["ticker"],
+//         Openings: csco_openings,
+//       });
 
-      await driver.quit();
+//       await driver.quit();
 
-      continue;
-    }
+//       continue;
+//     }
 
-    // Wait for the page to load
-    await driver.wait(until.elementLocated(By.xpath(company["xpath"])), 10000);
-    const openings = await driver
-      .findElement(By.xpath(company["xpath"]))
-      .getText();
+//     // Wait for the page to load
+//     await driver.wait(until.elementLocated(By.xpath(company["xpath"])), 10000);
+//     const openings = await driver
+//       .findElement(By.xpath(company["xpath"]))
+//       .getText();
 
-    console.log("Openings for " + company["ticker"] + ": " + openings);
-    job_openings.push({ Company: company["ticker"], Openings: openings });
+//     console.log("Openings for " + company["ticker"] + ": " + openings);
+//     job_openings.push({ Company: company["ticker"], Openings: openings });
 
-    await driver.quit();
-  }
-  res.send({ express: job_openings });
+//     await driver.quit();
+//   }
+//   res.send({ express: job_openings });
 });
 
 app.get("/api/news", async (req, res) => {
-  const { Builder, By } = require("selenium-webdriver");
+//   const { Builder, By } = require("selenium-webdriver");
 
-  let driver = await new Builder()
+//   let driver = await new Builder()
     // .usingServer(gridUrl)
     // .withCapabilities(capabilities)
-    .forBrowser("chrome")
-    .build();
+    console.log("Starting News...");
+//     .forBrowser("chrome")
+//     .build();
 
-  await driver.get(
-    "https://www.google.com/search?q=shot+spotter&tbm=nws&ei=nH6xZMHiDp34kPIPkr-RkAs&start=0&sa=N&ved=2ahUKEwjBoK7R1Y6AAxUdPEQIHZJfBLI4ChDy0wN6BAgEEAQ&biw=1102&bih=642&dpr=2.2"
-  );
+//   await driver.get(
+//     "https://www.google.com/search?q=shot+spotter&tbm=nws&ei=nH6xZMHiDp34kPIPkr-RkAs&start=0&sa=N&ved=2ahUKEwjBoK7R1Y6AAxUdPEQIHZJfBLI4ChDy0wN6BAgEEAQ&biw=1102&bih=642&dpr=2.2"
+//   );
 
   // Wait for the page to load
   // await driver.wait(
@@ -209,32 +210,32 @@ app.get("/api/news", async (req, res) => {
   //   10000
   // );
 
-  const news = await driver
-    .findElement(By.xpath('//*[@id="rso"]/div/div'))
-    .getText();
+//   const news = await driver
+//     .findElement(By.xpath('//*[@id="rso"]/div/div'))
+//     .getText();
 
-  // Split the news into an array of objects with title, source, time
+//   // Split the news into an array of objects with title, source, time
 
-  // Structure of news:
+//   // Structure of news:
 
-  //Houston police should drop the ShotSpotter program (Editorial)
-  // The use of ShotSpotter technology by the Houston Police Department is contributing to longer police response times to violent crime.
-  //.
-  //7 hours ago
+//   //Houston police should drop the ShotSpotter program (Editorial)
+//   // The use of ShotSpotter technology by the Houston Police Department is contributing to longer police response times to violent crime.
+//   //.
+//   //7 hours ago
 
-  const newsArray = news.split("\n");
+//   const newsArray = news.split("\n");
 
-  let newsObjects = [];
+//   let newsObjects = [];
 
-  for (let i = 0; i < newsArray.length; i += 4) {
-    newsObjects.push({
-      title: newsArray[i],
-      source: newsArray[i + 1],
-      time: newsArray[i + 2],
-    });
-  }
+//   for (let i = 0; i < newsArray.length; i += 4) {
+//     newsObjects.push({
+//       title: newsArray[i],
+//       source: newsArray[i + 1],
+//       time: newsArray[i + 2],
+//     });
+//   }
 
-  console.log(newsObjects);
+//   console.log(newsObjects);
 
   res.send({ express: "hi" });
 });
