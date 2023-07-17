@@ -67,12 +67,31 @@ app.get("/api/test", (req, res) => {
   res.json({ test: "Hello World!" });
 });
 
+const capability = {
+	"browserName": "Chrome",
+	"browserVersion": "114.0",
+	"LT:Options": {
+		"username": "evan.more02",
+		"accessKey": "bfxWGbJzwT4HJnORzMI6oyAKeopHJnsAZrwO5SRbDqb5TkEbTr",
+		"platformName": "Windows 10",
+		"build": "Heroku",
+		"project": "JMP",
+		"w3c": true,
+		"plugin": "node_js-node_js"
+	}
+}
+const USERNAME = "evan.more02"; //replace with your username
+const KEY = "bfxWGbJzwT4HJnORzMI6oyAKeopHJnsAZrwO5SRbDqb5TkEbTr"; //replace with your accesskey
+const GRID_HOST = "hub.lambdatest.com/wd/hub";
+const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
+
+
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
   console.log("IN Glassdoor");
 
   // // Import selenium
-  console.log("REAUIRE");
+//   console.log("REAUIRE");
 //   const webdriver = require("selenium-webdriver");
 
   //     // Import chrome
@@ -83,50 +102,49 @@ app.get("/api/ratings", async (req, res) => {
   //   let ratings = [];
 
   //   // Chrome options
-    chrome_options = await new webdriver.chrome.Options();
-    chrome_options.addArguments("--window-size=1920,1080");
-    chrome_options.addArguments("--disable-extensions");
-    chrome_options.addArguments("--proxy-server='direct://'");
-    chrome_options.addArguments("--proxy-bypass-list=*");
-    chrome_options.addArguments("--start-maximized");
-    chrome_options.addArguments("--headless");
-    chrome_options.addArguments("--disable-gpu");
-    chrome_options.addArguments("--disable-dev-shm-usage");
-    chrome_options.addArguments("--no-sandbox");
-    chrome_options.addArguments("--ignore-certificate-errors");
-    chrome_options.addArguments("--allow-running-insecure-content");
-    chrome_options.addArguments(
-      "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
-    );
+    // chrome_options = await new webdriver.chrome.Options();
+    // chrome_options.addArguments("--window-size=1920,1080");
+    // chrome_options.addArguments("--disable-extensions");
+    // chrome_options.addArguments("--proxy-server='direct://'");
+    // chrome_options.addArguments("--proxy-bypass-list=*");
+    // chrome_options.addArguments("--start-maximized");
+    // chrome_options.addArguments("--headless");
+    // chrome_options.addArguments("--disable-gpu");
+    // chrome_options.addArguments("--disable-dev-shm-usage");
+    // chrome_options.addArguments("--no-sandbox");
+    // chrome_options.addArguments("--ignore-certificate-errors");
+    // chrome_options.addArguments("--allow-running-insecure-content");
+    // chrome_options.addArguments(
+    //   "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
+    // );
 
     console.log("Starting Glassdoor...");
 
    // Loop through each company
     for (const key in glassDoorLinks) {
       let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(chrome_options)
-        .build();
-
+        .usingServer(gridUrl)
+        .withCapabilities(capability)
+        .build()
         // Get the link
 
-    //   await driver.get(glassDoorLinks[key]);
+      await driver.get(glassDoorLinks[key]);
 
       // Get ratings
-    //   const rating = await driver
-    //     .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
-    //     .getText();
+      const rating = await driver
+        .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+        .getText();
 
-    //   console.log("Push " + key + " to ratings... " + rating);
-    //   ratings.push({ Company: key, Rating: rating });
+      console.log("Push " + key + " to ratings... " + rating);
+      ratings.push({ Company: key, Rating: rating });
       await driver.quit();
 
     }
 
-  let ratings = [
-    { Company: "Hi", Ratings: 4 },
-    { Company: "By", Rating: 3 },
-  ];
+//   let ratings = [
+//     { Company: "Hi", Ratings: 4 },
+//     { Company: "By", Rating: 3 },
+//   ];
 
   console.log("Done with Glassdoor");
   res.json({ express: ratings });
