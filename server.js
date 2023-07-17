@@ -12,19 +12,15 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 
 //Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use('/static', express.static(path.join(__dirname, 'client/build')))
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"), function (err) {
-        if(err) {
-            console.log("EERRR")
-            console.log(err);
-        }
-    })
-  })
+    res.sendFile(path.join(__dirname + "/client/build/index.html"))
+})
 
   app.listen(PORT, err => {
     if (err) console.info(`Error: The server failed to start on ${PORT}`);
