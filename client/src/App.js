@@ -30,6 +30,8 @@ function App() {
       console.log(err.message)
       console.log(err.code)
     })
+    console.log("body")
+    console.log(body)
 
     // if (response.status !== 200) {
     //   throw Error(body.message);
