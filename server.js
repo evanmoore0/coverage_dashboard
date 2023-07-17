@@ -4,7 +4,7 @@ const express = require("express"); //Line 1
 const app = express(); //Line 2
 const path = require("path");
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 
 // GLASS DOOR
 const glassDoorLinks = {
@@ -40,12 +40,6 @@ app.use(express.static(path.join(__dirname, "client/build")));
 // Send build
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-
-// Listen to specific port
-app.listen(PORT, (err) => {
-  if (err) console.info(`Error: The server failed to start on ${PORT}`);
-  else console.info(`****** Node server is running on ${PORT} ******`);
 });
 
 console.log("HERE ")
@@ -225,3 +219,10 @@ app.get("/api/news", async (req, res) => {
 
   res.send({ express: "hi" });
 });
+
+
+// Listen to specific port
+app.listen(PORT, (err) => {
+    if (err) console.info(`Error: The server failed to start on ${PORT}`);
+    else console.info(`****** Node server is running on ${PORT} ******`);
+  });
