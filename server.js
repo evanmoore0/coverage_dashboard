@@ -9,14 +9,8 @@ const app = express(); //Line 2
 // import { jobLinks, glassDoorLinks, capabilities, gridUrl } from "./constants";
 const path = require("path");
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
-// app.use(express.static(path.join(__dirname, "public")));
-//   .set('views', path.join(__dirname, 'views'))
-//   .set('view engine', 'ejs')
-
-// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-const fs = require('fs');
 //Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -183,7 +177,7 @@ const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 // })
 
 // Glassdoor Point
-app.get("/ratings", async (req, res) => {
+app.get("/api/ratings", async (req, res) => {
   const { Builder, By } = require("selenium-webdriver");
   // Import options from chrome
   const chrome = require("selenium-webdriver/chrome");
@@ -263,7 +257,7 @@ app.get("/ratings", async (req, res) => {
   res.send({ express: ratings });
 });
 
-app.get("/openings", async (req, res) => {
+app.get("/api/openings", async (req, res) => {
   const { Builder, By } = require("selenium-webdriver");
 
   console.log("IN openings");
@@ -315,7 +309,7 @@ app.get("/openings", async (req, res) => {
   res.send({ express: job_openings });
 });
 
-app.get("/news", async (req, res) => {
+app.get("/api/news", async (req, res) => {
   const { Builder, By } = require("selenium-webdriver");
 
   let driver = await new Builder()
