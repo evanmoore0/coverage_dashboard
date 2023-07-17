@@ -42,9 +42,9 @@ const jobLinks = [
 //     next();
 // });
 
-var cors = require('cors')
+// var cors = require('cors')
 
-app.use(cors());
+// app.use(cors());
 
 // Connect to build
 app.use(express.static(path.join(__dirname, "client/build")));
