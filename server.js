@@ -72,10 +72,10 @@ app.get("/api/ratings", async (req, res) => {
     console.log("IN Glassdoor")
 
 // // Import selenium
-//   const { Builder, By } = require("selenium-webdriver");
+  const { Builder, By } = require("selenium-webdriver");
 
 //     // Import chrome
-//   const chrome = require("selenium-webdriver/chrome");
+  const chrome = require("selenium-webdriver/chrome");
 
 //     // Store ratings
 //   let ratings = [];
