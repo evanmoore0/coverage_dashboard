@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ThreeDots } from "react-loader-spinner";
 
@@ -15,6 +15,23 @@ function App() {
   const [glassdoorData, setGlassdoorData] = useState(null);
   const [jobData, setJobData] = useState(null);
   const [newsData, setNewsData] = useState(null);
+
+  async function test() {
+    const response = await fetch("/api/test").catch((err) => {
+      console.log("error in fetch")
+      console.log(err.message)
+      console.log(err.code)
+    })
+
+    const body = await response.json().catch((err) => {
+      console.log("error in body")
+      console.log(err.message)
+      console.log(err.code)
+    })
+
+    console.log("body")
+    console.log(body)
+  }
 
   async function getRatings() {
     const response = await fetch("/api/ratings").catch((err) => {
@@ -38,6 +55,10 @@ function App() {
     // }
     return body;
   }
+
+  useEffect(() => {
+    test()
+  }, [])
 
   async function getOpenings() {
     const response = await fetch("/openings");

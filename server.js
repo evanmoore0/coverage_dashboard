@@ -51,6 +51,11 @@ app.listen(PORT, (err) => {
 console.log("HERE ")
 console.log("LISTNEING ON PORT " + PORT)
 
+app.get("/api/test", (req, res) => {
+    console.log("HERER")
+    res.send("Hello World!")
+})
+
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
 
