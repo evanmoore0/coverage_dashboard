@@ -77,20 +77,20 @@ app.get("/api/ratings", async (req, res) => {
 
   //     // Import chrome option
 
-  console.log("INIT DRIVER");
-  var driver = new webdriver.Builder()
-    .withCapabilities(webdriver.Capabilities.chrome())
-    .build();
+//   console.log("INIT DRIVER");
+//   var driver = new webdriver.Builder()
+//     .withCapabilities(webdriver.Capabilities.chrome())
+//     .build();
 
-  console.log("GET LINK");
-  await driver.get(
-    "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm"
-  );
+//   console.log("GET LINK");
+//   await driver.get(
+//     "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm"
+//   );
 
-  console.log("GET RATING");
-  const rating = await driver
-    .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
-    .getText();
+//   console.log("GET RATING");
+//   const rating = await driver
+//     .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+//     .getText();
   //     // Store ratings
   //   let ratings = [];
 
