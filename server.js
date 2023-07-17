@@ -1,10 +1,9 @@
 //IMPORTS
-console.log("HIII ")
+console.log("HIII ");
 const express = require("express"); //Line 1
 const app = express(); //Line 2
 const path = require("path");
-var cors = require('cors')
-
+var cors = require("cors");
 
 const PORT = process.env.PORT || 8000;
 
@@ -36,7 +35,7 @@ const jobLinks = [
   },
 ];
 
-// // Cors 
+// // Cors
 // app.use((req, res, next) => {
 //     res.append('Access-Control-Allow-Origin', ['*']);
 //     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -47,8 +46,7 @@ const jobLinks = [
 // var cors = require('cors')
 
 // app.use(cors());
-app.use(cors())
-
+app.use(cors());
 
 // Connect to build
 app.use(express.static(path.join(__dirname, "client/build")));
@@ -58,87 +56,105 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
-console.log("HERE ")
-console.log("LISTNEING ON PORT " + PORT)
+console.log("HERE ");
+console.log("LISTNEING ON PORT " + PORT);
 
 app.get("/api/test", (req, res) => {
-    console.log("HERER")
-    res.json({test: "Hello World!"})
-})
+  console.log("HERER");
+  res.json({ test: "Hello World!" });
+});
 
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
+  console.log("IN Glassdoor");
 
-    console.log("IN Glassdoor")
+  // // Import selenium
+  console.log("REAUIRE");
+  const webdriver = require("selenium-webdriver");
 
-// // Import selenium
-  const { Builder, By } = require("selenium-webdriver");
+  //     // Import chrome
+  //   const chrome = require("selenium-webdriver/chrome");
 
-//     // Import chrome
-  const chrome = require("selenium-webdriver/chrome");
+  //     // Import chrome option
 
-//     // Store ratings
-//   let ratings = [];
+  console.log("INIT DRIVER");
+  var driver = new webdriver.Builder()
+    .withCapabilities(webdriver.Capabilities.chrome())
+    .build();
 
-//   // Chrome options
-//   chrome_options = new chrome.Options();
-//   chrome_options.addArguments("--window-size=1920,1080");
-//   chrome_options.addArguments("--disable-extensions");
-//   chrome_options.addArguments("--proxy-server='direct://'");
-//   chrome_options.addArguments("--proxy-bypass-list=*");
-//   chrome_options.addArguments("--start-maximized");
-//   chrome_options.addArguments("--headless");
-//   chrome_options.addArguments("--disable-gpu");
-//   chrome_options.addArguments("--disable-dev-shm-usage");
-//   chrome_options.addArguments("--no-sandbox");
-//   chrome_options.addArguments("--ignore-certificate-errors");
-//   chrome_options.addArguments("--allow-running-insecure-content");
-//   chrome_options.addArguments(
-//     "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
-//   );
+  console.log("GET LINK");
+  await driver.get(
+    "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm"
+  );
 
-//   console.log("Starting Glassdoor...");
+  console.log("GET RATING");
+  const rating = await driver
+    .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+    .getText();
+  //     // Store ratings
+  //   let ratings = [];
 
-//  // Loop through each company
-//   for (const key in glassDoorLinks) {
-//     let driver = await new Builder()
-//       .forBrowser("chrome")
-//       .setChromeOptions(chrome_options)
-//       .build();
+  //   // Chrome options
+  //   chrome_options = new chrome.Options();
+  //   chrome_options.addArguments("--window-size=1920,1080");
+  //   chrome_options.addArguments("--disable-extensions");
+  //   chrome_options.addArguments("--proxy-server='direct://'");
+  //   chrome_options.addArguments("--proxy-bypass-list=*");
+  //   chrome_options.addArguments("--start-maximized");
+  //   chrome_options.addArguments("--headless");
+  //   chrome_options.addArguments("--disable-gpu");
+  //   chrome_options.addArguments("--disable-dev-shm-usage");
+  //   chrome_options.addArguments("--no-sandbox");
+  //   chrome_options.addArguments("--ignore-certificate-errors");
+  //   chrome_options.addArguments("--allow-running-insecure-content");
+  //   chrome_options.addArguments(
+  //     "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
+  //   );
 
-//       // Get the link
-//     await driver.get(glassDoorLinks[key]);
+  //   console.log("Starting Glassdoor...");
 
-//     // Get ratings
-//     const rating = await driver
-//       .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
-//       .getText();
+  //  // Loop through each company
+  //   for (const key in glassDoorLinks) {
+  //     let driver = await new Builder()
+  //       .forBrowser("chrome")
+  //       .setChromeOptions(chrome_options)
+  //       .build();
 
-//     console.log("Push " + key + " to ratings... " + rating);
-//     ratings.push({ Company: key, Rating: rating });
-//     await driver.quit();
+  //       // Get the link
+  //     await driver.get(glassDoorLinks[key]);
 
-//   }
+  //     // Get ratings
+  //     const rating = await driver
+  //       .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+  //       .getText();
 
-  ratings = [{Company: "Hi", Ratings: 1}, {Company: "By", Rating: 2}]
+  //     console.log("Push " + key + " to ratings... " + rating);
+  //     ratings.push({ Company: key, Rating: rating });
+  //     await driver.quit();
+
+  //   }
+
+  ratings = [
+    { Company: "Hi", Ratings: 1 },
+    { Company: "By", Rating: 2 },
+  ];
 
   console.log("Done with Glassdoor");
   res.json({ express: ratings });
-//   res.send({ express: ratings });
+  //   res.send({ express: ratings });
 });
 
 // Job Openings Point
 app.get("/api/openings", async (req, res) => {
-
-    // Import selenium
+  // Import selenium
   const { Builder, By } = require("selenium-webdriver");
 
   console.log("Starting Job Openings...");
 
-// store openings
+  // store openings
   let job_openings = [];
 
-    // Loop through each company
+  // Loop through each company
   for (const company of jobLinks) {
     console.log(company);
 
@@ -149,7 +165,6 @@ app.get("/api/openings", async (req, res) => {
     }
 
     console.log("Starting " + company.ticker + "...");
-
 
     let driver = await new Builder().forBrowser("chrome").build();
 
@@ -239,9 +254,8 @@ app.get("/api/news", async (req, res) => {
   res.send({ express: "hi" });
 });
 
-
 // Listen to specific port
 app.listen(PORT, (err) => {
-    if (err) console.info(`Error: The server failed to start on ${PORT}`);
-    else console.info(`****** Node server is running on ${PORT} ******`);
-  });
+  if (err) console.info(`Error: The server failed to start on ${PORT}`);
+  else console.info(`****** Node server is running on ${PORT} ******`);
+});
