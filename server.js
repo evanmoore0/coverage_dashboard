@@ -38,17 +38,7 @@ const jobLinks = [
   },
 ];
 
-// // Cors
-// app.use((req, res, next) => {
-//     res.append('Access-Control-Allow-Origin', ['*']);
-//     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.append('Access-Control-Allow-Headers', 'Content-Type');
-//     next();
-// });
-
-// var cors = require('cors')
-
-// app.use(cors());
+// Use cors
 app.use(cors());
 
 // Connect to build
@@ -59,14 +49,14 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
-console.log("HERE ");
-console.log("LISTNEING ON PORT " + PORT);
-
+// Test
 app.get("/api/test", (req, res) => {
   console.log("HERER");
   res.json({ test: "Hello World!" });
 });
 
+
+// Lambda stuff
 const capability = {
 	"browserName": "Chrome",
 	"browserVersion": "114.0",
@@ -88,20 +78,10 @@ const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
-  console.log("IN Glassdoor");
 
-  // // Import selenium
-//   console.log("REAUIRE");
-//   const webdriver = require("selenium-webdriver");
 
-  //     // Import chrome
-  //   const chrome = require("selenium-webdriver/chrome");
 
-  //     // Import chrome option
-  //     // Store ratings
-  //   let ratings = [];
-
-  //   // Chrome options
+   // Chrome options
     // chrome_options = await new webdriver.chrome.Options();
     // chrome_options.addArguments("--window-size=1920,1080");
     // chrome_options.addArguments("--disable-extensions");
@@ -119,6 +99,8 @@ app.get("/api/ratings", async (req, res) => {
     // );
 
     console.log("Starting Glassdoor...");
+
+    let ratings = []
 
    // Loop through each company
     for (const key in glassDoorLinks) {
@@ -141,14 +123,8 @@ app.get("/api/ratings", async (req, res) => {
 
     }
 
-//   let ratings = [
-//     { Company: "Hi", Ratings: 4 },
-//     { Company: "By", Rating: 3 },
-//   ];
-
   console.log("Done with Glassdoor");
   res.json({ express: ratings });
-  //   res.send({ express: ratings });
 });
 
 // Job Openings Point
