@@ -17,7 +17,12 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function getRatings() {
-    const response = await fetch("https://final-dashboard-15ef7bba4916.herokuapp.com/api/ratings");
+
+    const response = await fetch("https://final-dashboard-15ef7bba4916.herokuapp.com/api/ratings").catch((err) => {
+      console.log("ERROR HERE")
+      console.log(err.message)
+      console.log(err.code)
+    });
     const body = await response.json();
 
     if (response.status !== 200) {
