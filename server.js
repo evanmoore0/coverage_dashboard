@@ -1,6 +1,6 @@
 const express = require("express"); //Line 1
 const app = express(); //Line 2
-const port =  8000; //Line 3
+const port =  process.env.PORT || 8000; //Line 3
 
 // import { jobLinks, glassDoorLinks, capabilities, gridUrl } from "./constants";
 
