@@ -101,7 +101,8 @@ app.get("/api/ratings", async (req, res) => {
   }
 
   console.log("Done with Glassdoor");
-  res.send({ express: ratings });
+  res.json({ express: ratings });
+//   res.send({ express: ratings });
 });
 
 // Job Openings Point

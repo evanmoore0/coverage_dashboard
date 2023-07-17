@@ -17,17 +17,23 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function getRatings() {
-
     const response = await fetch("https://final-dashboard-15ef7bba4916.herokuapp.com/api/ratings").catch((err) => {
-      console.log("ERROR HERE")
+      console.log("error in fetch")
       console.log(err.message)
       console.log(err.code)
     });
-    const body = await response.json();
 
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
+    // Add try catch to line below
+
+    const body = await response.json().catch((err) => {
+      console.log("error in body")
+      console.log(err.message)
+      console.log(err.code)
+    })
+
+    // if (response.status !== 200) {
+    //   throw Error(body.message);
+    // }
     return body;
   }
 
