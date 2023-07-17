@@ -18,11 +18,16 @@ function App() {
 
   async function test() {
     const response = await fetch("/api/test")
-      .then(res => res.json())
+      .then(res => {
+        console.log("RES")
+        console.log(res)
+        res.json()
+      })
       .then(data => {console.log(data)})
       .catch(err => {
         console.log("error")
         console.log(err)
+        console.log(err.code)
       });
 
     // console.log(response)
