@@ -71,53 +71,56 @@ app.get("/api/ratings", async (req, res) => {
 
     console.log("IN Glassdoor")
 
-// Import selenium
-  const { Builder, By } = require("selenium-webdriver");
+// // Import selenium
+//   const { Builder, By } = require("selenium-webdriver");
 
-    // Import chrome
-  const chrome = require("selenium-webdriver/chrome");
+//     // Import chrome
+//   const chrome = require("selenium-webdriver/chrome");
 
-    // Store ratings
-  let ratings = [];
+//     // Store ratings
+//   let ratings = [];
 
-  // Chrome options
-  chrome_options = new chrome.Options();
-  chrome_options.addArguments("--window-size=1920,1080");
-  chrome_options.addArguments("--disable-extensions");
-  chrome_options.addArguments("--proxy-server='direct://'");
-  chrome_options.addArguments("--proxy-bypass-list=*");
-  chrome_options.addArguments("--start-maximized");
-  chrome_options.addArguments("--headless");
-  chrome_options.addArguments("--disable-gpu");
-  chrome_options.addArguments("--disable-dev-shm-usage");
-  chrome_options.addArguments("--no-sandbox");
-  chrome_options.addArguments("--ignore-certificate-errors");
-  chrome_options.addArguments("--allow-running-insecure-content");
-  chrome_options.addArguments(
-    "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
-  );
+//   // Chrome options
+//   chrome_options = new chrome.Options();
+//   chrome_options.addArguments("--window-size=1920,1080");
+//   chrome_options.addArguments("--disable-extensions");
+//   chrome_options.addArguments("--proxy-server='direct://'");
+//   chrome_options.addArguments("--proxy-bypass-list=*");
+//   chrome_options.addArguments("--start-maximized");
+//   chrome_options.addArguments("--headless");
+//   chrome_options.addArguments("--disable-gpu");
+//   chrome_options.addArguments("--disable-dev-shm-usage");
+//   chrome_options.addArguments("--no-sandbox");
+//   chrome_options.addArguments("--ignore-certificate-errors");
+//   chrome_options.addArguments("--allow-running-insecure-content");
+//   chrome_options.addArguments(
+//     "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
+//   );
 
-  console.log("Starting Glassdoor...");
+//   console.log("Starting Glassdoor...");
 
- // Loop through each company
-  for (const key in glassDoorLinks) {
-    let driver = await new Builder()
-      .forBrowser("chrome")
-      .setChromeOptions(chrome_options)
-      .build();
+//  // Loop through each company
+//   for (const key in glassDoorLinks) {
+//     let driver = await new Builder()
+//       .forBrowser("chrome")
+//       .setChromeOptions(chrome_options)
+//       .build();
 
-      // Get the link
-    await driver.get(glassDoorLinks[key]);
+//       // Get the link
+//     await driver.get(glassDoorLinks[key]);
 
-    // Get ratings
-    const rating = await driver
-      .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
-      .getText();
+//     // Get ratings
+//     const rating = await driver
+//       .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+//       .getText();
 
-    console.log("Push " + key + " to ratings... " + rating);
-    ratings.push({ Company: key, Rating: rating });
-    await driver.quit();
-  }
+//     console.log("Push " + key + " to ratings... " + rating);
+//     ratings.push({ Company: key, Rating: rating });
+//     await driver.quit();
+
+//   }
+
+  ratings = [{Company: "Hi", Ratings: 1}, {Company: "By", Rating: 2}]
 
   console.log("Done with Glassdoor");
   res.json({ express: ratings });
