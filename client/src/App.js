@@ -17,23 +17,26 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function test() {
-    const response = await fetch("/api/test", {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
+    const response = await fetch("/api/test")
+    .then(async function (res) {
+      console.log("RES")
+      console.log(res.body())
+      return await res.json()
     })
-      .then((res) => {
-        console.log("RES")
-        console.log(res.body())
-        res.json()
-      })
-      .then((data) => {console.log(data)})
-      .catch((err) => {
-        console.log("error")
-        console.log(err)
-        console.log(err.code)
-      });
+
+    console.log("RESPONSE")
+    console.log(response)
+      // .then((res) => {
+      //   console.log("RES")
+      //   console.log(res.body())
+      //   res.json()
+      // })
+      // .then((data) => {console.log(data)})
+      // .catch((err) => {
+      //   console.log("error")
+      //   console.log(err)
+      //   console.log(err.code)
+      // });
 
     // console.log(response)
     // const body = await response.json().catch((err) => {
