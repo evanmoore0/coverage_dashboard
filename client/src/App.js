@@ -54,8 +54,6 @@ function App() {
   async function getRatings() {
     const response = await fetch("/api/ratings")
     .then(async function (res) {
-      console.log("RES")
-      console.log(res)
       return await res.json()
     })
 
