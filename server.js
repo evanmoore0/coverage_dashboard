@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5001;
 //   .set('views', path.join(__dirname, 'views'))
 //   .set('view engine', 'ejs')
 
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 app.use('/static', express.static(path.join(__dirname, './client/build')))
 
 
@@ -20,6 +21,8 @@ app.get("*", (req, res) => {
         }
     })
   })
+
+
 //   .get("/", (req, res) => res.render("pages/index"))
 //   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
