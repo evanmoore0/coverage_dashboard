@@ -5,6 +5,9 @@ const app = express(); //Line 2
 const path = require("path");
 var cors = require("cors");
 
+const webdriver = require('selenium-webdriver');
+
+
 const PORT = process.env.PORT || 8000;
 
 // GLASS DOOR
@@ -70,7 +73,7 @@ app.get("/api/ratings", async (req, res) => {
 
   // // Import selenium
   console.log("REAUIRE");
-  const webdriver = require("selenium-webdriver");
+//   const webdriver = require("selenium-webdriver");
 
   //     // Import chrome
   //   const chrome = require("selenium-webdriver/chrome");
@@ -78,9 +81,9 @@ app.get("/api/ratings", async (req, res) => {
   //     // Import chrome option
 
 //   console.log("INIT DRIVER");
-//   var driver = new webdriver.Builder()
-//     .withCapabilities(webdriver.Capabilities.chrome())
-//     .build();
+  var driver = new webdriver.Builder()
+    .withCapabilities(webdriver.Capabilities.chrome())
+    .build();
 
 //   console.log("GET LINK");
 //   await driver.get(
