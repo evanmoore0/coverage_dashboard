@@ -3,7 +3,7 @@ const express = require("express"); //Line 1
 const app = express(); //Line 2
 const path = require("path");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 // GLASS DOOR
 const glassDoorLinks = {
@@ -46,6 +46,9 @@ app.listen(PORT, (err) => {
   if (err) console.info(`Error: The server failed to start on ${PORT}`);
   else console.info(`****** Node server is running on ${PORT} ******`);
 });
+
+console.log("HERE ")
+console.log("LISTNEING ON PORT " + PORT)
 
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
