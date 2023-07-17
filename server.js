@@ -79,22 +79,22 @@ const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
 
-   // Chrome options
-    // chrome_options = await new webdriver.chrome.Options();
-    // chrome_options.addArguments("--window-size=1920,1080");
-    // chrome_options.addArguments("--disable-extensions");
-    // chrome_options.addArguments("--proxy-server='direct://'");
-    // chrome_options.addArguments("--proxy-bypass-list=*");
-    // chrome_options.addArguments("--start-maximized");
-    // chrome_options.addArguments("--headless");
-    // chrome_options.addArguments("--disable-gpu");
-    // chrome_options.addArguments("--disable-dev-shm-usage");
-    // chrome_options.addArguments("--no-sandbox");
-    // chrome_options.addArguments("--ignore-certificate-errors");
-    // chrome_options.addArguments("--allow-running-insecure-content");
-    // chrome_options.addArguments(
-    //   "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
-    // );
+//    Chrome options
+    chrome_options = await new webdriver.chrome.Options();
+    chrome_options.addArguments("--window-size=1920,1080");
+    chrome_options.addArguments("--disable-extensions");
+    chrome_options.addArguments("--proxy-server='direct://'");
+    chrome_options.addArguments("--proxy-bypass-list=*");
+    chrome_options.addArguments("--start-maximized");
+    chrome_options.addArguments("--headless");
+    chrome_options.addArguments("--disable-gpu");
+    chrome_options.addArguments("--disable-dev-shm-usage");
+    chrome_options.addArguments("--no-sandbox");
+    chrome_options.addArguments("--ignore-certificate-errors");
+    chrome_options.addArguments("--allow-running-insecure-content");
+    chrome_options.addArguments(
+      "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
+    );
 
     console.log("Starting Glassdoor...");
 
@@ -103,8 +103,10 @@ app.get("/api/ratings", async (req, res) => {
    // Loop through each company
     for (const key in glassDoorLinks) {
       let driver = await new webdriver.Builder()
-        .usingServer(gridUrl)
-        .withCapabilities(capability)
+        // .usingServer(gridUrl)
+        // .withCapabilities(capability)
+        .setChromeOptions(chrome_options)
+        
         .build()
         // Get the link
 
