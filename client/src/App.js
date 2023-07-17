@@ -31,8 +31,8 @@ function App() {
 
     // console.log("body")
     // console.log(body)
-    console.log("RESPONSE")
-    console.log(response.body)
+    console.log("response")
+    console.log(response)
 
   }
 

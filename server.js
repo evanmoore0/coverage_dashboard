@@ -47,7 +47,7 @@ console.log("LISTNEING ON PORT " + PORT)
 
 app.get("/api/test", (req, res) => {
     console.log("HERER")
-    res.send("Hello World!")
+    res.json("Hello World!")
 })
 
 // Glassdoor Point
