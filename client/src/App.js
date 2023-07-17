@@ -32,7 +32,7 @@ function App() {
     // console.log("body")
     // console.log(body)
     console.log("RESPONSE")
-    console.log(response)
+    console.log(response.body)
 
   }
 
