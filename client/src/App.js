@@ -17,7 +17,7 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function getRatings() {
-    const response = await fetch("/ratings");
+    const response = await fetch("/api/ratings");
     const body = await response.json();
 
     if (response.status !== 200) {
