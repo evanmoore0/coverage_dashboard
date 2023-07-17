@@ -54,7 +54,7 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, "client/build")));
 
 // Send build
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
@@ -63,7 +63,7 @@ console.log("LISTNEING ON PORT " + PORT)
 
 app.get("/api/test", (req, res) => {
     console.log("HERER")
-    res.json("Hello World!")
+    res.json({test: "Hello World!"})
 })
 
 // Glassdoor Point
