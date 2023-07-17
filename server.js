@@ -50,6 +50,8 @@ app.listen(PORT, (err) => {
 // Glassdoor Point
 app.get("/api/ratings", async (req, res) => {
 
+    console.log("IN Glassdoor")
+
 // Import selenium
   const { Builder, By } = require("selenium-webdriver");
 
@@ -125,7 +127,7 @@ app.get("/api/openings", async (req, res) => {
 
     console.log("Starting " + company.ticker + "...");
 
-    
+
     let driver = await new Builder().forBrowser("chrome").build();
 
     console.log("getting link ");
