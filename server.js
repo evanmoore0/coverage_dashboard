@@ -9,11 +9,11 @@ const PORT = process.env.PORT || 5001;
 //   .set('views', path.join(__dirname, 'views'))
 //   .set('view engine', 'ejs')
 
-app.use('/static', express.static(path.join(__dirname, '/client/build')))
+app.use('/static', express.static(path.join(__dirname, './client/build')))
 
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "/client/build/index.html"), function (err) {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"), function (err) {
         if(err) {
             console.log("EERRR")
             console.log(err);
