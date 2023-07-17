@@ -134,7 +134,7 @@ app.get("/api/ratings", async (req, res) => {
 
   //   }
 
-  ratings = [
+  let ratings = [
     { Company: "Hi", Ratings: 1 },
     { Company: "By", Rating: 2 },
   ];
