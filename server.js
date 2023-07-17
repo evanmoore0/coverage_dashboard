@@ -127,6 +127,8 @@ app.get("/api/ratings", async (req, res) => {
   res.json({ express: ratings });
 });
 
+
+
 // Job Openings Point
 app.get("/api/openings", async (req, res) => {
   // Import selenium
