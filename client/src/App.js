@@ -17,20 +17,23 @@ function App() {
   const [newsData, setNewsData] = useState(null);
 
   async function test() {
-    const response = await fetch("https://final-dashboard-15ef7bba4916.herokuapp.com/api/test").catch((err) => {
+    const response = await fetch("/api/test").catch((err) => {
       console.log("error in fetch")
       console.log(err.message)
       console.log(err.code)
     })
 
-    const body = await response.json().catch((err) => {
-      console.log("error in body")
-      console.log(err.message)
-      console.log(err.code)
-    })
+    // const body = await response.json().catch((err) => {
+    //   console.log("error in body")
+    //   console.log(err.message)
+    //   console.log(err.code)
+    // })
 
-    console.log("body")
-    console.log(body)
+    // console.log("body")
+    // console.log(body)
+    console.log("RESPONSE")
+    console.log(response)
+
   }
 
   async function getRatings() {
