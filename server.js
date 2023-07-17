@@ -1,19 +1,22 @@
 const express = require("express"); //Line 1
 const app = express(); //Line 2
-const path = require('path')
-
 // import { jobLinks, glassDoorLinks, capabilities, gridUrl } from "./constants";
 
+const PORT = process.env.PORT || 5001;
 
-const PORT = process.env.PORT || 5001
-
+app.use(express.static(path.join(__dirname, "public")));
+//   .set('views', path.join(__dirname, 'views'))
+//   .set('view engine', 'ejs')
 app
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+  })
+//   .get("/", (req, res) => res.render("pages/index"))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "client/build/index.html"));
+// })
 
 const glassDoorLinks = {
   ANET: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
@@ -159,29 +162,27 @@ app.get("/ratings", async (req, res) => {
 
   let ratings = [];
 
-// change window size of driver
+  // change window size of driver
 
-// Convert this code to javascript
+  // Convert this code to javascript
 
-// self.chrome_options = webdriver.ChromeOptions()
-// self.chrome_options.add_argument("--window-size=1920,1080")
-// self.chrome_options.add_argument("--disable-extensions")
-// self.chrome_options.add_argument("--proxy-server='direct://'")
-// self.chrome_options.add_argument("--proxy-bypass-list=*")
-// self.chrome_options.add_argument("--start-maximized")
-// self.chrome_options.add_argument('--headless')
-// self.chrome_options.add_argument('--disable-gpu')
-// self.chrome_options.add_argument('--disable-dev-shm-usage')
-// self.chrome_options.add_argument('--no-sandbox')
-// self.chrome_options.add_argument('--ignore-certificate-errors')
-// self.browser = webdriver.Chrome(options=self.chrome_options)
+  // self.chrome_options = webdriver.ChromeOptions()
+  // self.chrome_options.add_argument("--window-size=1920,1080")
+  // self.chrome_options.add_argument("--disable-extensions")
+  // self.chrome_options.add_argument("--proxy-server='direct://'")
+  // self.chrome_options.add_argument("--proxy-bypass-list=*")
+  // self.chrome_options.add_argument("--start-maximized")
+  // self.chrome_options.add_argument('--headless')
+  // self.chrome_options.add_argument('--disable-gpu')
+  // self.chrome_options.add_argument('--disable-dev-shm-usage')
+  // self.chrome_options.add_argument('--no-sandbox')
+  // self.chrome_options.add_argument('--ignore-certificate-errors')
+  // self.browser = webdriver.Chrome(options=self.chrome_options)
 
+  // Add chrome_options.add_argument('--allow-running-insecure-content')
 
-// Add chrome_options.add_argument('--allow-running-insecure-content')
-
-// Add user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-// options.add_argument(f'user-agent={user_agent}')
-
+  // Add user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+  // options.add_argument(f'user-agent={user_agent}')
 
   chrome_options = new chrome.Options();
   chrome_options.addArguments("--window-size=1920,1080");
@@ -198,22 +199,18 @@ app.get("/ratings", async (req, res) => {
   chrome_options.addArguments(
     "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
   );
-  
-
-
-
 
   console.log("Starting Glassdoor...");
 
   for (const key in glassDoorLinks) {
     let driver = await new Builder()
-    .forBrowser("chrome")
-    .setChromeOptions(chrome_options)
-    .build();
+      .forBrowser("chrome")
+      .setChromeOptions(chrome_options)
+      .build();
 
     // Get screenshot
 
-    await driver.takeScreenshot('screenshot.png')
+    await driver.takeScreenshot("screenshot.png");
 
     await driver.get(glassDoorLinks[key]);
 
@@ -224,8 +221,6 @@ app.get("/ratings", async (req, res) => {
     //   ),
     //   10000
     // );
-
-
 
     const rating = await driver
       .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
@@ -255,9 +250,7 @@ app.get("/openings", async (req, res) => {
     }
 
     console.log("Starting " + company.ticker + "...");
-    let driver = await new Builder()
-    .forBrowser("chrome")
-    .build();
+    let driver = await new Builder().forBrowser("chrome").build();
 
     console.log("getting link ");
 
@@ -321,28 +314,26 @@ app.get("/news", async (req, res) => {
 
   // Split the news into an array of objects with title, source, time
 
+  // Structure of news:
 
-    // Structure of news:
+  //Houston police should drop the ShotSpotter program (Editorial)
+  // The use of ShotSpotter technology by the Houston Police Department is contributing to longer police response times to violent crime.
+  //.
+  //7 hours ago
 
-    //Houston police should drop the ShotSpotter program (Editorial)
-    // The use of ShotSpotter technology by the Houston Police Department is contributing to longer police response times to violent crime.
-    //.
-    //7 hours ago
+  const newsArray = news.split("\n");
 
-    const newsArray = news.split("\n");
+  let newsObjects = [];
 
-    let newsObjects = [];
+  for (let i = 0; i < newsArray.length; i += 4) {
+    newsObjects.push({
+      title: newsArray[i],
+      source: newsArray[i + 1],
+      time: newsArray[i + 2],
+    });
+  }
 
-    for (let i = 0; i < newsArray.length; i += 4) {
-      newsObjects.push({
-        title: newsArray[i],
-        source: newsArray[i + 1],
-        time: newsArray[i + 2],
-      });
-    }
-
-    console.log(newsObjects);
-  
+  console.log(newsObjects);
 
   res.send({ express: "hi" });
 });
