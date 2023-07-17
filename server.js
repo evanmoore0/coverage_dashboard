@@ -81,19 +81,19 @@ app.get("/api/ratings", async (req, res) => {
   //     // Import chrome option
 
 //   console.log("INIT DRIVER");
-  var driver = new webdriver.Builder()
+  var driver = await new webdriver.Builder()
     .withCapabilities(webdriver.Capabilities.chrome())
     .build();
 
 //   console.log("GET LINK");
-//   await driver.get(
-//     "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm"
-//   );
+  await driver.get(
+    "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm"
+  );
 
 //   console.log("GET RATING");
-//   const rating = await driver
-//     .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
-//     .getText();
+  const rating = await driver
+    .findElement(By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div'))
+    .getText();
   //     // Store ratings
   //   let ratings = [];
 
@@ -133,13 +133,13 @@ app.get("/api/ratings", async (req, res) => {
 
   //     console.log("Push " + key + " to ratings... " + rating);
   //     ratings.push({ Company: key, Rating: rating });
-  //     await driver.quit();
+      await driver.quit();
 
   //   }
 
   let ratings = [
-    { Company: "Hi", Ratings: 1 },
-    { Company: "By", Rating: 2 },
+    { Company: "Hi", Ratings: rating },
+    { Company: "By", Rating: rating },
   ];
 
   console.log("Done with Glassdoor");
