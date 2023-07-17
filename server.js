@@ -136,6 +136,10 @@ const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+})
+
 // Glassdoor Point
 app.get("/ratings", async (req, res) => {
   const { Builder, By } = require("selenium-webdriver");
