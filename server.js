@@ -1,8 +1,19 @@
 const express = require("express"); //Line 1
 const app = express(); //Line 2
-const port =  process.env.PORT || 8000; //Line 3
+const path = require('path')
 
 // import { jobLinks, glassDoorLinks, capabilities, gridUrl } from "./constants";
+
+
+const PORT = process.env.PORT || 5001
+
+app
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
 
 const glassDoorLinks = {
   ANET: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
@@ -134,11 +145,11 @@ const GRID_HOST = "hub.lambdatest.com/wd/hub";
 const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 
 // This displays message that the server running and listening to specified port
-app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
+// app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"));
-})
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "client/build/index.html"));
+// })
 
 // Glassdoor Point
 app.get("/ratings", async (req, res) => {
