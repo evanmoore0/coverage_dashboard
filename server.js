@@ -103,9 +103,9 @@ app.get("/api/ratings", async (req, res) => {
    // Loop through each company
     for (const key in glassDoorLinks) {
       let driver = await new webdriver.Builder()
-        // .usingServer(gridUrl)
-        // .withCapabilities(capability)
-        .setChromeOptions(chrome_options)
+        .usingServer(gridUrl)
+        .withCapabilities(capability)
+        // .setChromeOptions(chrome_options)
         
         .build()
         // Get the link
