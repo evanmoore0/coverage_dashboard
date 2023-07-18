@@ -21,12 +21,59 @@ function App() {
 
   // Get the Ratings data
   async function getRatings() {
-    const response = await fetch("/api/ratings")
+    let final = []
+    const responseOne = await fetch("/api/ratingsone")
       .then(async function (res) {
         return await res.json();
       })
       .catch((err) => alert(err.message));
-    return response;
+
+      console.log("FINAL ONE")
+
+      console.log(responseOne.express)
+
+      let one = responseOne.express[0]
+      let two = responseOne.express[1]
+
+      final.push(one)
+      final.push(two)
+
+      console.log(final)
+
+    const responseTwo = await fetch("/api/ratingstwo")
+      .then(async function (res) {
+        return await res.json();
+      }
+      )
+      .catch((err) => alert(err.message));
+
+      let three = responseTwo.express[0]
+      let four = responseTwo.express[1]
+
+      final.push(three)
+      final.push(four)
+
+    // const responseThree = await fetch("/api/ratingsthree")
+    //   .then(async function (res) {  
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
+
+    //   final.push(responseThree.express)
+
+    // const responseFour = await fetch("/api/ratingsfour")
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
+
+    //   final.push(responseFour.express)
+    console.log("FINAL")
+    console.log(final)
+
+      return final
   }
 
   // Get openings data
@@ -52,11 +99,11 @@ function App() {
   }
 
   // Handle clicks
-  const handleGlassdoorClick = () => {
+  const handleGlassdoorClick = async () => {
     setClickedGlassdoor(true);
-    getRatings()
+    await getRatings()
       .then((data) => {
-        setGlassdoorData(data.express);
+        setGlassdoorData(data);
       })
       .catch((err) => alert(err.message))
       .finally(() => {

@@ -9,23 +9,23 @@ const webdriver = require("selenium-webdriver");
 const PORT = process.env.PORT || 8000;
 
 // GLASS DOOR
-const glassDoorLinks = {
-  ANET: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
-  AVNW: "https://www.glassdoor.com/Reviews/Aviat-Networks-Reviews-E304176.htm",
-  AXON: "https://www.glassdoor.com/Reviews/Axon-Reviews-E1597674.htm",
-  BLZE: "https://www.glassdoor.com/Reviews/Backblaze-Reviews-E1197085.htm",
-  BOX: "https://www.glassdoor.com/Reviews/Box-Reviews-E254092.htm",
-  CMBM: "https://www.glassdoor.com/Reviews/Cambium-Networks-Reviews-E466115.htm",
-  CSCO: "https://www.glassdoor.com/Reviews/Cisco-Systems-Reviews-E1425.htm",
-  DT: "https://www.glassdoor.com/Reviews/Dynatrace-Reviews-E309684.htm",
-  NEWR: "https://www.glassdoor.com/Reviews/New-Relic-Reviews-E461657.htm",
-  NTNX: "https://www.glassdoor.com/Reviews/Nutanix-Reviews-E429159.htm",
-  OOMA: "https://www.glassdoor.com/Reviews/ooma-Reviews-E273768.htm",
-  RBBN: "https://www.glassdoor.com/Reviews/Ribbon-Communications-Reviews-E2590888.htm",
-  SWI: "https://www.glassdoor.com/Reviews/SolarWinds-Reviews-E100286.htm",
-  SSTI: "https://www.glassdoor.com/Reviews/SoundThinking-Reviews-E366121.htm",
-  VRNS: "https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm",
-};
+const glassDoorLinks = [
+  {company: "ANET", link: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm"},
+  {company: "AVNW", link:"https://www.glassdoor.com/Reviews/Aviat-Networks-Reviews-E304176.htm"},
+  {company: "AXON", link: "https://www.glassdoor.com/Reviews/Axon-Reviews-E1597674.htm"},
+  {company: "BLZE", link: "https://www.glassdoor.com/Reviews/Backblaze-Reviews-E1197085.htm"},
+  {company: "BOX" ,link: "https://www.glassdoor.com/Reviews/Box-Reviews-E254092.htm"},
+  {company: "CMBM", link: "https://www.glassdoor.com/Reviews/Cambium-Networks-Reviews-E466115.htm"},
+  {company: "CSCO", link: "https://www.glassdoor.com/Reviews/Cisco-Systems-Reviews-E1425.htm"},
+  {company: "DT" , link: "https://www.glassdoor.com/Reviews/Dynatrace-Reviews-E309684.htm"},
+  {company: "NEWR", link: "https://www.glassdoor.com/Reviews/New-Relic-Reviews-E461657.htm"},
+  {company: "NTNX", link:"https://www.glassdoor.com/Reviews/Nutanix-Reviews-E429159.htm"},
+  {company: "OOMA", link:"https://www.glassdoor.com/Reviews/ooma-Reviews-E273768.htm"},
+  {company: "RBBN", link:"https://www.glassdoor.com/Reviews/Ribbon-Communications-Reviews-E2590888.htm"},
+  {company: "SWI",  link:"https://www.glassdoor.com/Reviews/SolarWinds-Reviews-E100286.htm"},
+  {company: "SSTI", link:"https://www.glassdoor.com/Reviews/SoundThinking-Reviews-E366121.htm"},
+  {company: "VRNS", link:"https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm"}
+]
 
 // JOB OPENINGS
 const jobLinks = [
@@ -164,13 +164,13 @@ const GRID_HOST = "hub.lambdatest.com/wd/hub";
 const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 
 // Glassdoor Point
-app.get("/api/ratings", async (req, res) => {
+app.get("/api/ratingsone", async (req, res) => {
   console.log("Starting Glassdoor...");
 
   let ratings = [];
 
   // Loop through each company
-  for (const key in glassDoorLinks) {
+  for (const key of glassDoorLinks.slice(0,2)) {
     let driver = await new webdriver.Builder()
         .usingServer(gridUrl)
         .withCapabilities(capability)
@@ -178,8 +178,10 @@ app.get("/api/ratings", async (req, res) => {
     //   .forBrowser("chrome")
     //   .build();
 
+    console.log("KEY")
+    console.log(key)
     // Get the link
-    await driver.get(glassDoorLinks[key]);
+    await driver.get(key.link);
 
     // Get ratings
     // await driver.wait(
@@ -192,14 +194,129 @@ app.get("/api/ratings", async (req, res) => {
       )
       .getText();
 
-    console.log("Push " + key + " to ratings... " + rating);
-    ratings.push({ Company: key, Rating: rating });
+    console.log("Push " + key.company + " to ratings... " + rating);
+    ratings.push({ Company: key.company, Rating: rating });
     await driver.quit();
   }
 
   console.log("Done with Glassdoor");
   res.json({ express: ratings });
 });
+
+
+// Glassdoor Point
+app.get("/api/ratingstwo", async (req, res) => {
+    console.log("Starting Glassdoor...");
+  
+    let ratings = [];
+  
+    // Loop through each company
+    for (const key of glassDoorLinks.slice(2,4)) {
+      let driver = await new webdriver.Builder()
+          .usingServer(gridUrl)
+          .withCapabilities(capability)
+          .build();
+        // .forBrowser("chrome")
+        // .build();
+  
+      // Get the link
+      await driver.get(key.link);
+  
+      // Get ratings
+      // await driver.wait(
+      //     webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
+      //     100000
+      //   );
+      const rating = await driver
+        .findElement(
+          webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
+        )
+        .getText();
+  
+      console.log("Push " + key + " to ratings... " + rating);
+      ratings.push({ Company: key.company, Rating: rating });
+      await driver.quit();
+    }
+  
+    console.log("Done with Glassdoor");
+    res.json({ express: ratings });
+  });
+
+  // Glassdoor Point
+app.get("/api/ratingsthree", async (req, res) => {
+    console.log("Starting Glassdoor...");
+  
+    let ratings = [];
+  
+    // Loop through each company
+    for (const key of glassDoorLinks.slice(6, 9)) {
+      let driver = await new webdriver.Builder()
+          .usingServer(gridUrl)
+          .withCapabilities(capability)
+          .build();
+        // .forBrowser("chrome")
+        // .build();
+  
+      // Get the link
+      await driver.get(key.link);
+  
+      // Get ratings
+      // await driver.wait(
+      //     webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
+      //     100000
+      //   );
+      const rating = await driver
+        .findElement(
+          webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
+        )
+        .getText();
+  
+      console.log("Push " + key.company + " to ratings... " + rating);
+      ratings.push({ Company: key.company, Rating: rating });
+      await driver.quit();
+    }
+  
+    console.log("Done with Glassdoor");
+    res.json({ express: ratings });
+  });
+  
+  // Glassdoor Point
+app.get("/api/ratingsfour", async (req, res) => {
+    console.log("Starting Glassdoor...");
+  
+    let ratings = [];
+  
+    // Loop through each company
+    for (const key of glassDoorLinks.slice(9)) {
+      let driver = await new webdriver.Builder()
+          .usingServer(gridUrl)
+          .withCapabilities(capability)
+          .build();
+        // .forBrowser("chrome")
+        // .build();
+  
+      // Get the link
+      await driver.get(key.link);
+  
+      // Get ratings
+      // await driver.wait(
+      //     webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
+      //     100000
+      //   );
+      const rating = await driver
+        .findElement(
+          webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
+        )
+        .getText();
+  
+      console.log("Push " + key.company + " to ratings... " + rating);
+      ratings.push({ Company: key.company, Rating: rating });
+      await driver.quit();
+    }
+  
+    console.log("Done with Glassdoor");
+    res.json({ express: ratings });
+  });
 
 // Job Openings Point
 app.get("/api/openings", async (req, res) => {
