@@ -49,6 +49,12 @@
   width: 80%;
   display: flex;
   justify-content: space-between;
+  background-color: black;
+  margin: 2vw;
+  padding: 1vw;
+  color: white;
+  font-size: 12px;
+  border-radius: 8px;
 }
 
 .Main {
@@ -78,4 +84,42 @@
 
 .Loader {
   margin: 1vw;
+}
+
+.news-container {
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  border-radius: 8px;
+  background-color: black;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 2vw;
+  padding: 1vw
+}
+
+.news-pub {
+  color: lightblue;
+  font-size: 10px;
+  text-align: left;
+}
+
+.news-headline {
+  color: white;
+  font-size: 16px;
+  text-align: left;
+  /* background-color: red; */
+
+}
+
+.news-description {
+  color: #949494;
+  font-size: 12px;
+  text-align: left;
+
+}
+
+.news-date {
+  color: "white";
+  font-size: 10px;
 }

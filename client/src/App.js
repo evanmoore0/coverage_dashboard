@@ -1,93 +1,37 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ThreeDots } from "react-loader-spinner";
 
 function App() {
+  // Loading states
   const [openingsLoading, setOpeningsLoading] = useState(true);
   const [glassDoorLoading, setGlassDoorLoading] = useState(true);
   const [newsLoading, setNewsLoading] = useState(true);
 
+  // Click states
   const [clickedOpenings, setClickedOpenings] = useState(false);
   const [clickedGlassdoor, setClickedGlassdoor] = useState(false);
   const [clickedNews, setClickedNews] = useState(false);
 
+  // Data states
   const [glassdoorData, setGlassdoorData] = useState(null);
   const [jobData, setJobData] = useState(null);
   const [newsData, setNewsData] = useState(null);
 
-  async function test() {
-    const response = await fetch("/api/test")
-    .then(async function (res) {
-      console.log("RES")
-      console.log(res)
-      return await res.json()
-    })
-
-    console.log("RESPONSE")
-    console.log(response)
-      // .then((res) => {
-      //   console.log("RES")
-      //   console.log(res.body())
-      //   res.json()
-      // })
-      // .then((data) => {console.log(data)})
-      // .catch((err) => {
-      //   console.log("error")
-      //   console.log(err)
-      //   console.log(err.code)
-      // });
-
-    // console.log(response)
-    // const body = await response.json().catch((err) => {
-    //   console.log("error in body")
-    //   console.log(err.message)
-    //   console.log(err.code)
-    // })
-
-    // console.log("body")
-    // console.log(body)
-    console.log("response");
-    console.log(response);
-  }
-
+  // Get the Ratings data
   async function getRatings() {
     const response = await fetch("/api/ratings")
-    .then(async function (res) {
-      return await res.json()
-    })
-
-    console.log("RESPONSE")
-    console.log(response)
-    return response
-    // const response = await fetch("/api/ratings").catch((err) => {
-    //   console.log("error in fetch");
-    //   console.log(err.message);
-    //   console.log(err.code);
-    // });
-
-    // // Add try catch to line below
-
-    // const body = await response.json().catch((err) => {
-    //   console.log("error in body");
-    //   console.log(err.message);
-    //   console.log(err.code);
-    // });
-    // console.log("body");
-    // console.log(body);
-
-    // // if (response.status !== 200) {
-    // //   throw Error(body.message);
-    // // }
-    // return body;
+      .then(async function (res) {
+        return await res.json();
+      })
+      .catch((err) => alert(err.message));
+    return response;
   }
 
-  // useEffect(() => {
-  //   test();
-  // }, []);
-
+  // Get openings data
   async function getOpenings() {
-    const response = await fetch("/openings");
+    const response = await fetch("/api/openings");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -96,8 +40,9 @@ function App() {
     return body;
   }
 
+  // Get news data
   async function getNews() {
-    const response = await fetch("/news");
+    const response = await fetch("/api/news");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -106,16 +51,15 @@ function App() {
     return body;
   }
 
+  // Handle clicks
   const handleGlassdoorClick = () => {
     setClickedGlassdoor(true);
     getRatings()
       .then((data) => {
-        console.log("Glassdoor done");
         setGlassdoorData(data.express);
       })
       .catch((err) => alert(err.message))
       .finally(() => {
-        console.log("Loading done");
         setGlassDoorLoading(false);
       });
   };
@@ -124,12 +68,10 @@ function App() {
     setClickedOpenings(true);
     getOpenings()
       .then((data) => {
-        console.log("Jobs done");
         setJobData(data.express);
       })
       .catch((err) => alert(err.message))
       .finally(() => {
-        console.log("Loading done");
         setOpeningsLoading(false);
       });
   };
@@ -138,12 +80,10 @@ function App() {
     setClickedNews(true);
     getNews()
       .then((data) => {
-        console.log("News done");
         setNewsData(data.express);
       })
       .catch((err) => alert(err.message))
       .finally(() => {
-        console.log("Loading done");
         setNewsLoading(false);
       });
   };
@@ -190,8 +130,8 @@ function App() {
           {glassDoorLoading ? (
             <></>
           ) : (
-            glassdoorData?.map((comp) => (
-              <div className="List">
+            glassdoorData?.map((comp, key) => (
+              <div className="List" key={key}>
                 <h3 className="Company-Name">{comp["Company"]}</h3>
                 <h3 className="Company-Name">{comp["Rating"]}</h3>
               </div>
@@ -228,8 +168,8 @@ function App() {
           {openingsLoading ? (
             <></>
           ) : (
-            jobData?.map((comp) => (
-              <div className="List">
+            jobData?.map((comp, key) => (
+              <div className="List" key={key}>
                 <h3 className="Company-Name">{comp["Company"]}</h3>
                 <h3 className="Company-Name">{comp["Openings"]}</h3>
               </div>
@@ -265,10 +205,12 @@ function App() {
           {newsLoading ? (
             <></>
           ) : (
-            newsData?.map((comp) => (
-              <div className="List">
-                <h3 className="Company-Name">{"HI"}</h3>
-                <h3 className="Company-Name">{"BY"}</h3>
+            newsData?.map((comp, key) => (
+              <div className="news-container" key={key}>
+                <h1 className="news-pub">{comp["publisher"]}</h1>
+                <h2 className="news-headline">{comp["headline"]}</h2>
+                <h3 className="news-description">{comp["description"]}</h3>
+                <h4 className="news-date">{comp["date"]}</h4>
               </div>
             ))
           )}
