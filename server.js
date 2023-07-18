@@ -182,6 +182,10 @@ app.get("/api/ratings", async (req, res) => {
     await driver.get(glassDoorLinks[key]);
 
     // Get ratings
+    await driver.wait(
+        webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
+        100000
+      );
     const rating = await driver
       .findElement(
         webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
@@ -244,7 +248,7 @@ app.get("/api/openings", async (req, res) => {
     // Wait for the page to load
     await driver.wait(
       webdriver.until.elementLocated(webdriver.By.xpath(company["xpath"])),
-      10000
+      100000
     );
     const openings = await driver
       .findElement(webdriver.By.xpath(company["xpath"]))
