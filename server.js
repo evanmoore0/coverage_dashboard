@@ -455,10 +455,10 @@ app.get("/api/openings", async (req, res) => {
     }
 
     // Wait for the page to load
-    // await driver.wait(
-    //   webdriver.until.elementLocated(webdriver.By.xpath(company["xpath"])),
-    //   100000
-    // );
+    await driver.wait(
+      webdriver.until.elementLocated(webdriver.By.xpath(company["xpath"])),
+      100000
+    );
     const openings = await driver
       .findElement(webdriver.By.xpath(company["xpath"]))
       .getText();
