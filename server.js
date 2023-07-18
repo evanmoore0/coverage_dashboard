@@ -240,8 +240,7 @@ app.get("/api/ratings", async (req, res) => {
 
   console.log("Starting Glassdoor...");
   const browser = await pupeeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--single-process", "--no-zygote"],
+    args: ["--no-sandbox",'--disable-setuid-sandbox'],
   });
   console.log("Test");
   const page = await browser.newPage();
