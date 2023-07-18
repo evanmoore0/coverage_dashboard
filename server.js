@@ -53,37 +53,37 @@ const jobLinks = [
     xpath: "",
     ready: false,
   },
-  {
-    ticker: "BOX", // Good, First
-    link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
-    xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
-    ready: true,
-  },
-  {
-    ticker: "CMBM", // Not done
-    link: "https://www.cambiumnetworks.com/about-cambium/careers/",
-    xpath: "",
-    ready: false,
-  },
-  {
-    ticker: "CSCO", // Good, Last
-    link: "https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",
-    xpath: "//*[@id='content']/div/div[2]/div[1]/div/span",
-    ready: true,
-  },
-  {
-    ticker: "DT", // Good, Last,
-    link: "https://careers.dynatrace.com/jobs/",
-    xpath:
-      "//*[@id='content']/section[1]/div[3]/section/form/div[3]/aside/div[2]/div[2]/p/span",
-    ready: true,
-  },
-  {
-    ticker: "NEWR", // Good, Last
-    link: "https://newrelic.careers/en_US/careers",
-    xpath: "//*[@id='main']/div/div/section/div[3]/div[1]/div[1]/div[1]",
-    ready: true,
-  },
+//   {
+//     ticker: "BOX", // Good, First
+//     link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
+//     xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
+//     ready: true,
+//   },
+//   {
+//     ticker: "CMBM", // Not done
+//     link: "https://www.cambiumnetworks.com/about-cambium/careers/",
+//     xpath: "",
+//     ready: false,
+//   },
+//   {
+//     ticker: "CSCO", // Good, Last
+//     link: "https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",
+//     xpath: "//*[@id='content']/div/div[2]/div[1]/div/span",
+//     ready: true,
+//   },
+//   {
+//     ticker: "DT", // Good, Last,
+//     link: "https://careers.dynatrace.com/jobs/",
+//     xpath:
+//       "//*[@id='content']/section[1]/div[3]/section/form/div[3]/aside/div[2]/div[2]/p/span",
+//     ready: true,
+//   },
+//   {
+//     ticker: "NEWR", // Good, Last
+//     link: "https://newrelic.careers/en_US/careers",
+//     xpath: "//*[@id='main']/div/div/section/div[3]/div[1]/div[1]/div[1]",
+//     ready: true,
+//   },
 //   {
 //     ticker: "NTNX", // Not done
 //     link: "https://nutanix.eightfold.ai/careers?&domain=nutanix.com",
@@ -123,8 +123,8 @@ const jobLinks = [
 ];
 
 const newsLinks = [
+    "https://www.google.com/search?q=shot+spotter&tbm=nws&ei=nH6xZMHiDp34kPIPkr-RkAs&start=0&sa=N&ved=2ahUKEwjBoK7R1Y6AAxUdPEQIHZJfBLI4ChDy0wN6BAgEEAQ&biw=1102&bih=642&dpr=2.2",
   "https://www.google.com/search?q=shot+spotter&tbm=nws&ei=Xqa2ZIiGOIz4kPIPpeq38AM&start=10&sa=N&ved=2ahUKEwiIrfegwJiAAxUMPEQIHSX1DT4Q8tMDegQIBBAE&biw=1200&bih=656&dpr=2",
-  "https://www.google.com/search?q=shot+spotter&tbm=nws&ei=nH6xZMHiDp34kPIPkr-RkAs&start=0&sa=N&ved=2ahUKEwjBoK7R1Y6AAxUdPEQIHZJfBLI4ChDy0wN6BAgEEAQ&biw=1102&bih=642&dpr=2.2",
 ];
 
 // Use cors
@@ -178,16 +178,9 @@ app.get("/api/ratingsone", async (req, res) => {
     //   .forBrowser("chrome")
     //   .build();
 
-    console.log("KEY")
-    console.log(key)
     // Get the link
     await driver.get(key.link);
 
-    // Get ratings
-    // await driver.wait(
-    //     webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
-    //     100000
-    //   );
     const rating = await driver
       .findElement(
         webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
@@ -249,7 +242,7 @@ app.get("/api/ratingsthree", async (req, res) => {
     let ratings = [];
   
     // Loop through each company
-    for (const key of glassDoorLinks.slice(6, 9)) {
+    for (const key of glassDoorLinks.slice(4, 6)) {
       let driver = await new webdriver.Builder()
           .usingServer(gridUrl)
           .withCapabilities(capability)
@@ -287,7 +280,7 @@ app.get("/api/ratingsfour", async (req, res) => {
     let ratings = [];
   
     // Loop through each company
-    for (const key of glassDoorLinks.slice(9)) {
+    for (const key of glassDoorLinks.slice(6,8)) {
       let driver = await new webdriver.Builder()
           .usingServer(gridUrl)
           .withCapabilities(capability)
@@ -303,6 +296,105 @@ app.get("/api/ratingsfour", async (req, res) => {
       //     webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
       //     100000
       //   );
+      const rating = await driver
+        .findElement(
+          webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
+        )
+        .getText();
+  
+      console.log("Push " + key.company + " to ratings... " + rating);
+      ratings.push({ Company: key.company, Rating: rating });
+      await driver.quit();
+    }
+  
+    console.log("Done with Glassdoor");
+    res.json({ express: ratings });
+  });
+
+  // Glassdoor Point
+app.get("/api/ratingsfive", async (req, res) => {
+    console.log("Starting Glassdoor...");
+  
+    let ratings = [];
+  
+    // Loop through each company
+    for (const key of glassDoorLinks.slice(8,10)) {
+      let driver = await new webdriver.Builder()
+          .usingServer(gridUrl)
+          .withCapabilities(capability)
+          .build();
+      //   .forBrowser("chrome")
+      //   .build();
+  
+      // Get the link
+      await driver.get(key.link);
+  
+      const rating = await driver
+        .findElement(
+          webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
+        )
+        .getText();
+  
+      console.log("Push " + key.company + " to ratings... " + rating);
+      ratings.push({ Company: key.company, Rating: rating });
+      await driver.quit();
+    }
+  
+    console.log("Done with Glassdoor");
+    res.json({ express: ratings });
+  });
+
+  // Glassdoor Point
+app.get("/api/ratingssix", async (req, res) => {
+    console.log("Starting Glassdoor...");
+  
+    let ratings = [];
+  
+    // Loop through each company
+    for (const key of glassDoorLinks.slice(10,12)) {
+      let driver = await new webdriver.Builder()
+          .usingServer(gridUrl)
+          .withCapabilities(capability)
+          .build();
+      //   .forBrowser("chrome")
+      //   .build();
+  
+      // Get the link
+      await driver.get(key.link);
+  
+      const rating = await driver
+        .findElement(
+          webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
+        )
+        .getText();
+  
+      console.log("Push " + key.company + " to ratings... " + rating);
+      ratings.push({ Company: key.company, Rating: rating });
+      await driver.quit();
+    }
+  
+    console.log("Done with Glassdoor");
+    res.json({ express: ratings });
+  });
+
+  // Glassdoor Point
+app.get("/api/ratingsseven", async (req, res) => {
+    console.log("Starting Glassdoor...");
+  
+    let ratings = [];
+  
+    // Loop through each company
+    for (const key of glassDoorLinks.slice(12,14)) {
+      let driver = await new webdriver.Builder()
+          .usingServer(gridUrl)
+          .withCapabilities(capability)
+          .build();
+      //   .forBrowser("chrome")
+      //   .build();
+  
+      // Get the link
+      await driver.get(key.link);
+  
       const rating = await driver
         .findElement(
           webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
@@ -378,6 +470,8 @@ app.get("/api/openings", async (req, res) => {
   }
   res.json({ express: job_openings });
 });
+
+
 
 app.get("/api/news", async (req, res) => {
 

@@ -53,25 +53,72 @@ function App() {
       final.push(three)
       final.push(four)
 
-    // const responseThree = await fetch("/api/ratingsthree")
-    //   .then(async function (res) {  
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
 
-    //   final.push(responseThree.express)
+    const responseThree = await fetch("/api/ratingsthree")
+      .then(async function (res) {
+        return await res.json();
+      }
 
-    // const responseFour = await fetch("/api/ratingsfour")
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
+      )
+      .catch((err) => alert(err.message));
 
-    //   final.push(responseFour.express)
-    console.log("FINAL")
-    console.log(final)
+      let five = responseThree.express[0]
+      let six = responseThree.express[1]
+
+      final.push(five)
+      final.push(six)
+
+    const responseFour = await fetch("/api/ratingsfour")
+      .then(async function (res) {
+        return await res.json();
+      }
+      )
+      .catch((err) => alert(err.message));
+
+      let seven = responseFour.express[0]
+      let eight = responseFour.express[1]
+
+      final.push(seven)
+      final.push(eight)
+
+    const responseFive = await fetch("/api/ratingsfive") 
+      .then(async function (res) {
+        return await res.json();
+      }
+      )
+      .catch((err) => alert(err.message));
+
+      let nine = responseFive.express[0]
+      let ten = responseFive.express[1]
+
+      final.push(nine)
+      final.push(ten)
+
+    const responseSix = await fetch("/api/ratingssix")
+      .then(async function (res) {
+        return await res.json();
+      }
+      )
+      .catch((err) => alert(err.message));
+      
+      let eleven = responseSix.express[0]
+      let twelve = responseSix.express[1]
+
+      final.push(eleven)
+      final.push(twelve)
+
+    const responseSeven = await fetch("/api/ratingsseven")
+      .then(async function (res) {
+        return await res.json();
+      }
+      )
+      .catch((err) => alert(err.message));
+
+      let thirteen = responseSeven.express[0]
+      let fourteen = responseSeven.express[1]
+
+      final.push(thirteen)
+      final.push(fourteen)
 
       return final
   }
