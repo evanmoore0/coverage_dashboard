@@ -21,105 +21,115 @@ function App() {
 
   // Get the Ratings data
   async function getRatings() {
+
     let final = []
-    const responseOne = await fetch("/api/ratingsone")
+
+    for (let i = 0; i < 15; i++ ){
+      const response = await fetch("/api/ratings")
       .then(async function (res) {
         return await res.json();
       })
       .catch((err) => alert(err.message));
 
-      console.log("FINAL ONE")
+      console.log("PUSH")
+      final.push(response.express)
+    }
+      // console.log("FINAL ONE")
 
-      console.log(responseOne.express)
+    //   console.log(responseOne.express)
 
-      let one = responseOne.express[0]
-      let two = responseOne.express[1]
+    //   let one = responseOne.express[0]
+    //   let two = responseOne.express[1]
 
-      final.push(one)
-      final.push(two)
+    //   final.push(one)
+    //   final.push(two)
 
-      console.log(final)
+    //   // console.log(final)
 
-    const responseTwo = await fetch("/api/ratingstwo")
-      .then(async function (res) {
-        return await res.json();
-      }
-      )
-      .catch((err) => alert(err.message));
+    // const responseTwo = await fetch("/api/ratingstwo")
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
 
-      let three = responseTwo.express[0]
-      let four = responseTwo.express[1]
+    //   let three = responseTwo.express[0]
+    //   let four = responseTwo.express[1]
 
-      final.push(three)
-      final.push(four)
+    //   final.push(three)
+    //   final.push(four)
 
 
-    const responseThree = await fetch("/api/ratingsthree")
-      .then(async function (res) {
-        return await res.json();
-      }
 
-      )
-      .catch((err) => alert(err.message));
 
-      let five = responseThree.express[0]
-      let six = responseThree.express[1]
+    // const responseThree = await fetch("/api/ratingsthree")
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
 
-      final.push(five)
-      final.push(six)
+    //   )
+    //   .catch((err) => alert(err.message));
 
-    const responseFour = await fetch("/api/ratingsfour")
-      .then(async function (res) {
-        return await res.json();
-      }
-      )
-      .catch((err) => alert(err.message));
+    //   let five = responseThree.express[0]
+    //   let six = responseThree.express[1]
 
-      let seven = responseFour.express[0]
-      let eight = responseFour.express[1]
+    //   final.push(five)
+    //   final.push(six)
 
-      final.push(seven)
-      final.push(eight)
+    // const responseFour = await fetch("/api/ratingsfour")
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
 
-    const responseFive = await fetch("/api/ratingsfive") 
-      .then(async function (res) {
-        return await res.json();
-      }
-      )
-      .catch((err) => alert(err.message));
+    //   let seven = responseFour.express[0]
+    //   let eight = responseFour.express[1]
 
-      let nine = responseFive.express[0]
-      let ten = responseFive.express[1]
+    //   final.push(seven)
+    //   final.push(eight)
 
-      final.push(nine)
-      final.push(ten)
+    // const responseFive = await fetch("/api/ratingsfive") 
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
 
-    const responseSix = await fetch("/api/ratingssix")
-      .then(async function (res) {
-        return await res.json();
-      }
-      )
-      .catch((err) => alert(err.message));
+    //   let nine = responseFive.express[0]
+    //   let ten = responseFive.express[1]
+
+    //   final.push(nine)
+    //   final.push(ten)
+
+    // const responseSix = await fetch("/api/ratingssix")
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
       
-      let eleven = responseSix.express[0]
-      let twelve = responseSix.express[1]
+    //   let eleven = responseSix.express[0]
+    //   let twelve = responseSix.express[1]
 
-      final.push(eleven)
-      final.push(twelve)
+    //   final.push(eleven)
+    //   final.push(twelve)
 
-    const responseSeven = await fetch("/api/ratingsseven")
-      .then(async function (res) {
-        return await res.json();
-      }
-      )
-      .catch((err) => alert(err.message));
+    // const responseSeven = await fetch("/api/ratingsseven")
+    //   .then(async function (res) {
+    //     return await res.json();
+    //   }
+    //   )
+    //   .catch((err) => alert(err.message));
 
-      let thirteen = responseSeven.express[0]
-      let fourteen = responseSeven.express[1]
+    //   let thirteen = responseSeven.express[0]
+    //   let fourteen = responseSeven.express[1]
 
-      final.push(thirteen)
-      final.push(fourteen)
+    //   final.push(thirteen)
+    //   final.push(fourteen)
 
+      console.log("Final")
+      console.log(final)
       return final
   }
 
