@@ -13,18 +13,18 @@ const glassDoorLinks = {
   ANET: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
   AVNW: "https://www.glassdoor.com/Reviews/Aviat-Networks-Reviews-E304176.htm",
   AXON: "https://www.glassdoor.com/Reviews/Axon-Reviews-E1597674.htm",
-  BLZE: "https://www.glassdoor.com/Reviews/Backblaze-Reviews-E1197085.htm",
-  BOX: "https://www.glassdoor.com/Reviews/Box-Reviews-E254092.htm",
-  CMBM: "https://www.glassdoor.com/Reviews/Cambium-Networks-Reviews-E466115.htm",
-  CSCO: "https://www.glassdoor.com/Reviews/Cisco-Systems-Reviews-E1425.htm",
-  DT: "https://www.glassdoor.com/Reviews/Dynatrace-Reviews-E309684.htm",
-  NEWR: "https://www.glassdoor.com/Reviews/New-Relic-Reviews-E461657.htm",
-  NTNX: "https://www.glassdoor.com/Reviews/Nutanix-Reviews-E429159.htm",
-  OOMA: "https://www.glassdoor.com/Reviews/ooma-Reviews-E273768.htm",
-  RBBN: "https://www.glassdoor.com/Reviews/Ribbon-Communications-Reviews-E2590888.htm",
-  SWI: "https://www.glassdoor.com/Reviews/SolarWinds-Reviews-E100286.htm",
-  SSTI: "https://www.glassdoor.com/Reviews/SoundThinking-Reviews-E366121.htm",
-  VRNS: "https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm",
+//   BLZE: "https://www.glassdoor.com/Reviews/Backblaze-Reviews-E1197085.htm",
+//   BOX: "https://www.glassdoor.com/Reviews/Box-Reviews-E254092.htm",
+//   CMBM: "https://www.glassdoor.com/Reviews/Cambium-Networks-Reviews-E466115.htm",
+//   CSCO: "https://www.glassdoor.com/Reviews/Cisco-Systems-Reviews-E1425.htm",
+//   DT: "https://www.glassdoor.com/Reviews/Dynatrace-Reviews-E309684.htm",
+//   NEWR: "https://www.glassdoor.com/Reviews/New-Relic-Reviews-E461657.htm",
+//   NTNX: "https://www.glassdoor.com/Reviews/Nutanix-Reviews-E429159.htm",
+//   OOMA: "https://www.glassdoor.com/Reviews/ooma-Reviews-E273768.htm",
+//   RBBN: "https://www.glassdoor.com/Reviews/Ribbon-Communications-Reviews-E2590888.htm",
+//   SWI: "https://www.glassdoor.com/Reviews/SolarWinds-Reviews-E100286.htm",
+//   SSTI: "https://www.glassdoor.com/Reviews/SoundThinking-Reviews-E366121.htm",
+//   VRNS: "https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm",
 };
 
 // JOB OPENINGS
@@ -84,42 +84,42 @@ const jobLinks = [
     xpath: "//*[@id='main']/div/div/section/div[3]/div[1]/div[1]/div[1]",
     ready: true,
   },
-  {
-    ticker: "NTNX", // Not done
-    link: "https://nutanix.eightfold.ai/careers?&domain=nutanix.com",
-    xpath: "//*[@id='target_anchor_']/div/span/div/div/span/div/div/strong",
-    ready: false,
-  },
-  {
-    ticker: "OOMA", // Not done
-    link: "https://boards.greenhouse.io/ooma",
-    xpath: "",
-    ready: false,
-  },
-  {
-    ticker: "RBBN", // Good, first
-    link: "https://vhr-genband.wd1.myworkdayjobs.com/ribboncareers",
-    xpath: "//*[@id='mainContent']/div/div[2]/section/p",
-    ready: true,
-  },
-  {
-    ticker: "SWI", // Good, Last,
-    link: "https://jobs.solarwinds.com/jobs/",
-    xpath: "/html/body/div[7]/div[2]/div/div/p",
-    ready: true,
-  },
-  {
-    ticker: "SSTI", // Not done
-    link: "https://www.soundthinking.com/careers/",
-    xpath: "",
-    ready: false,
-  },
-  {
-    ticker: "VRNS", // Not done
-    link: "https://careers.varonis.com/",
-    xpath: "",
-    ready: false,
-  },
+//   {
+//     ticker: "NTNX", // Not done
+//     link: "https://nutanix.eightfold.ai/careers?&domain=nutanix.com",
+//     xpath: "//*[@id='target_anchor_']/div/span/div/div/span/div/div/strong",
+//     ready: false,
+//   },
+//   {
+//     ticker: "OOMA", // Not done
+//     link: "https://boards.greenhouse.io/ooma",
+//     xpath: "",
+//     ready: false,
+//   },
+//   {
+//     ticker: "RBBN", // Good, first
+//     link: "https://vhr-genband.wd1.myworkdayjobs.com/ribboncareers",
+//     xpath: "//*[@id='mainContent']/div/div[2]/section/p",
+//     ready: true,
+//   },
+//   {
+//     ticker: "SWI", // Good, Last,
+//     link: "https://jobs.solarwinds.com/jobs/",
+//     xpath: "/html/body/div[7]/div[2]/div/div/p",
+//     ready: true,
+//   },
+//   {
+//     ticker: "SSTI", // Not done
+//     link: "https://www.soundthinking.com/careers/",
+//     xpath: "",
+//     ready: false,
+//   },
+//   {
+//     ticker: "VRNS", // Not done
+//     link: "https://careers.varonis.com/",
+//     xpath: "",
+//     ready: false,
+//   },
 ];
 
 const newsLinks = [
@@ -182,10 +182,10 @@ app.get("/api/ratings", async (req, res) => {
     await driver.get(glassDoorLinks[key]);
 
     // Get ratings
-    await driver.wait(
-        webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
-        100000
-      );
+    // await driver.wait(
+    //     webdriver.until.elementLocated(webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')),
+    //     100000
+    //   );
     const rating = await driver
       .findElement(
         webdriver.By.xpath('//*[@id="EmpStats"]/div/div[1]/div/div/div')
