@@ -24,8 +24,8 @@ function App() {
 
     let final = []
 
-    for (let i = 0; i < 15; i++ ){
-      const response = await fetch("/api/ratings")
+    // for (let i = 0; i < 15; i++ ){
+      const response = await fetch("/ratings")
       .then(async function (res) {
         return await res.json();
       })
@@ -33,7 +33,7 @@ function App() {
 
       console.log("PUSH")
       final.push(response.express)
-    }
+    // }
       // console.log("FINAL ONE")
 
     //   console.log(responseOne.express)

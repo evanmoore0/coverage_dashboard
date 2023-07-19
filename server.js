@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 app.get("/ratings", async (req, res) => {
 
   const response = await bot()
-  res.send(response)
+  res.send({express: response})
 
 });
 
