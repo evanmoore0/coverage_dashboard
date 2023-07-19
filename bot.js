@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 
 const bot = async () => {
+    console.log("HI BOT")
   const browser = await puppeteer.launch({
     headless: true,
     args: [

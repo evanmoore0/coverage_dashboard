@@ -6,7 +6,7 @@ var cors = require("cors");
 
 const bot = require("./bot");
 
-var pupeeteer = require("puppeteer");
+// var pupeeteer = require("puppeteer");
 
 // const webdriver = require("selenium-webdriver");
 
@@ -28,7 +28,10 @@ app.get("/", (req, res) => {
 app.get("/ratings", async (req, res) => {
 
   const response = await bot()
-  res.send({express: response})
+  res.json({express: {
+    Company: "hi",
+    Rating: response
+  }})
 
 });
 
