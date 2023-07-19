@@ -29,7 +29,9 @@ app.get("/ratings", async (req, res) => {
 
   count = count + 1
 
+  console.log(constants.glassDoor[count])
   let response = await bot(constants.glassDoor[count])
+
 
   
   res.json({express: {
