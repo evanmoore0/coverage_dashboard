@@ -3,15 +3,13 @@ const express = require("express"); //Line 1
 const app = express(); //Line 2
 const path = require("path");
 var cors = require("cors");
-
 const bot = require("./bot");
+const constants = require("./constants");
 
-// var pupeeteer = require("puppeteer");
-
-// const webdriver = require("selenium-webdriver");
 
 const PORT = process.env.PORT || 8000;
 
+let count = 0
 
 // Use cors
 app.use(cors());
@@ -24,13 +22,18 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
+
+
 // Glassdoor Point
 app.get("/ratings", async (req, res) => {
 
-  const response = await bot()
+  count = count + 1
+
+  let response = await bot(constants.glassDoor[count])
+  
   res.json({express: {
-    Company: "hi",
-    Rating: response
+    Company: response.Company,
+    Rating: response.Rating
   }})
 
 });
