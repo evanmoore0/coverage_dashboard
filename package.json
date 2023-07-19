@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.3.4",
     "react-scripts": "^5.0.1",
+    "user-agents": "^1.0.1444",
     "web-vitals": "^3.4.0"
   },
   "engines": {
