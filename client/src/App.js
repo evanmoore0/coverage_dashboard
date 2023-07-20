@@ -24,7 +24,7 @@ function App() {
 
     let final = []
 
-    for (let i = 0; i < 14; i++ ){
+    for (let i = 0; i < 13; i++ ){
       const response = await fetch("/ratings")
       .then(async function (res) {
         return await res.json();
