@@ -103,6 +103,10 @@ const news = async (link) => {
 
     let new_news = news_rep.split("\n");
 
+    if(new_news[0] == "Sort by date") {
+        new_news.shift()
+    }
+
     let count = 3;
     for (let i = 0; i < new_news.length; i++) {
       if (i == count) {

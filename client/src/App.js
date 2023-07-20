@@ -112,10 +112,8 @@ function App() {
       </header>
 
       <main className="Main">
-        <div className="Main-Content">
-          <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
-
-          {clickedGlassdoor ? (
+      <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
+      {clickedGlassdoor ? (
             glassDoorLoading ? (
               <div className="Loader">
                 <ThreeDots
@@ -137,6 +135,8 @@ function App() {
               {"Load Data"}
             </button>
           )}
+
+        <div className="Main-Content">
 
           {glassDoorLoading ? (
             <></>
