@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  justify-content: center;
+  display:flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -20,13 +23,12 @@
   align-items: space-between;
   justify-content: space-between;
   padding: 2vw;
-
-  
 }
 
 .Subtitle {
   color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 1.2vw;
 }
 
 .Placeholder {
@@ -34,15 +36,16 @@
 }
 
 .Main-Content {
-  width: 30vw;
   background-color: #0063a3;  
   display: flex;
+  /* flex-wrap: wrap; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   color: white;
-
+  width: 30vw;
+  margin-bottom: 5vw;
 }
 
 .List {
@@ -86,7 +89,7 @@
   margin: 1vw;
 }
 
-.news-container {
+.new-container {
   display: flex;
   flex-direction: column;
   /* background-color: red; */
@@ -94,8 +97,9 @@
   background-color: black;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 2vw;
-  padding: 1vw
+  margin: 15px;
+  padding: 10px;
+  width: 340px;
 }
 
 .news-pub {
@@ -120,6 +124,26 @@
 }
 
 .news-date {
-  color: "white";
+  color: white;
   font-size: 10px;
 }
+
+.news-container {
+  /* background-color: #0063a3; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* border-radius: 8px; */
+  /* align-items: center; */
+  /* justify-content: center; */
+
+}
+
+.bottom-container {
+  /* justify-content: center; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* margin-top: 10vw */
+}
+

@@ -3,7 +3,7 @@ const express = require("express"); //Line 1
 const app = express(); //Line 2
 const path = require("path");
 var cors = require("cors");
-const bot = require("./bot");
+const {ratings, news, openings} = require("./bot");
 const constants = require("./constants");
 
 
@@ -27,10 +27,10 @@ app.get("/", (req, res) => {
 // Glassdoor Point
 app.get("/ratings", async (req, res) => {
 
-  count = count + 1
 
   console.log(constants.glassDoor[count])
-  let response = await bot(constants.glassDoor[count])
+  let response = await ratings(constants.glassDoor[count])
+  count = count + 1
 
 
   
@@ -39,6 +39,24 @@ app.get("/ratings", async (req, res) => {
     Rating: response.Rating
   }})
 
+});
+
+app.get("/news", async (req, res) => {
+
+  let response = []
+  for (const page of constants.news) {
+
+    console.log("PAGE")
+    console.log(page)
+    let response_news = await news(page)
+
+    response = response.concat(response_news)
+
+  }
+    console.log("FINAL RESPONSE")
+    console.log(response)
+    res.json({express: response}) 
+  
 });
 
 

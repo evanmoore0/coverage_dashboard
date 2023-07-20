@@ -35,100 +35,6 @@ function App() {
       console.log(response.express)
       final.push(response.express)
     }
-      // console.log("FINAL ONE")
-
-    //   console.log(responseOne.express)
-
-    //   let one = responseOne.express[0]
-    //   let two = responseOne.express[1]
-
-    //   final.push(one)
-    //   final.push(two)
-
-    //   // console.log(final)
-
-    // const responseTwo = await fetch("/api/ratingstwo")
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
-
-    //   let three = responseTwo.express[0]
-    //   let four = responseTwo.express[1]
-
-    //   final.push(three)
-    //   final.push(four)
-
-
-
-
-    // const responseThree = await fetch("/api/ratingsthree")
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-
-    //   )
-    //   .catch((err) => alert(err.message));
-
-    //   let five = responseThree.express[0]
-    //   let six = responseThree.express[1]
-
-    //   final.push(five)
-    //   final.push(six)
-
-    // const responseFour = await fetch("/api/ratingsfour")
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
-
-    //   let seven = responseFour.express[0]
-    //   let eight = responseFour.express[1]
-
-    //   final.push(seven)
-    //   final.push(eight)
-
-    // const responseFive = await fetch("/api/ratingsfive") 
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
-
-    //   let nine = responseFive.express[0]
-    //   let ten = responseFive.express[1]
-
-    //   final.push(nine)
-    //   final.push(ten)
-
-    // const responseSix = await fetch("/api/ratingssix")
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
-      
-    //   let eleven = responseSix.express[0]
-    //   let twelve = responseSix.express[1]
-
-    //   final.push(eleven)
-    //   final.push(twelve)
-
-    // const responseSeven = await fetch("/api/ratingsseven")
-    //   .then(async function (res) {
-    //     return await res.json();
-    //   }
-    //   )
-    //   .catch((err) => alert(err.message));
-
-    //   let thirteen = responseSeven.express[0]
-    //   let fourteen = responseSeven.express[1]
-
-    //   final.push(thirteen)
-    //   final.push(fourteen)
-
       console.log("Final")
       console.log(final)
       return final
@@ -147,7 +53,7 @@ function App() {
 
   // Get news data
   async function getNews() {
-    const response = await fetch("/api/news");
+    const response = await fetch("/news");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -281,10 +187,13 @@ function App() {
             ))
           )}
         </div>
-        <div className="Main-Content">
-          <h2 className="Subtitle">{"ShotSpotter News"}</h2>
+ 
+      </main>
 
-          {clickedNews ? (
+      <section className="bottom-container">
+            <div className = "Main-Content">
+            <h2 className="Subtitle">{"ShotSpotter News"}</h2>
+      {clickedNews ? (
             newsLoading ? (
               <div className="Loader">
                 <ThreeDots
@@ -306,12 +215,16 @@ function App() {
               {"Load Data"}
             </button>
           )}
+            </div>
+
+      <div className="news-container">
+         
 
           {newsLoading ? (
             <></>
           ) : (
             newsData?.map((comp, key) => (
-              <div className="news-container" key={key}>
+              <div className="new-container" key={key}>
                 <h1 className="news-pub">{comp["publisher"]}</h1>
                 <h2 className="news-headline">{comp["headline"]}</h2>
                 <h3 className="news-description">{comp["description"]}</h3>
@@ -320,7 +233,7 @@ function App() {
             ))
           )}
         </div>
-      </main>
+      </section>
     </div>
   );
 }
