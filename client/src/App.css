@@ -147,3 +147,9 @@
   /* margin-top: 10vw */
 }
 
+
+
+.bruh {
+  display: flex;
+  flex-direction: column
+}
