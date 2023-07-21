@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import { ThreeDots } from "react-loader-spinner";
 
+import { constants } from "./constants";
+
 function App() {
   // Loading states
   const [openingsLoading, setOpeningsLoading] = useState(true);
@@ -23,7 +25,7 @@ function App() {
   async function getRatings() {
     let final = [];
 
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < constants.glassDoor.length; i++) {
       const response = await fetch("/ratings")
         .then(async function (res) {
           return await res.json();

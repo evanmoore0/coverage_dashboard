@@ -34,7 +34,7 @@ const ratings = async (comp) => {
   } finally {
     await browser.close();
   }
-
+  
   return { Company: comp.company, Rating: rating };
 };
 
