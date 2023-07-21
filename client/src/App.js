@@ -21,23 +21,22 @@ function App() {
 
   // Get the Ratings data
   async function getRatings() {
+    let final = [];
 
-    let final = []
-
-    for (let i = 0; i < 13; i++ ){
+    for (let i = 0; i < 13; i++) {
       const response = await fetch("/ratings")
-      .then(async function (res) {
-        return await res.json();
-      })
-      .catch((err) => alert(err.message));
+        .then(async function (res) {
+          return await res.json();
+        })
+        .catch((err) => alert(err.message));
 
-      console.log("Response Express")
-      console.log(response.express)
-      final.push(response.express)
+      console.log("Response Express");
+      console.log(response.express);
+      final.push(response.express);
     }
-      console.log("Final")
-      console.log(final)
-      return final
+    console.log("Final");
+    console.log(final);
+    return final;
   }
 
   // Get openings data
@@ -99,6 +98,54 @@ function App() {
       });
   };
 
+  const CompanyList = ({data}) => {
+    return (
+      <>
+        {glassDoorLoading ? (
+          <></>
+        ) : (
+          <div className="List-Container">
+            {data?.map((comp, key) => (
+              <div className="List" key={key}>
+                <h3 className="Company-Name">{comp.name}</h3>
+                <h3 className="Company-Name">{comp.other}</h3>
+              </div>
+            ))}
+          </div>
+        )}
+      </>
+    );
+  };
+
+  const TitleButton = ({clickLoading, loading, onSecClick}) => {  
+    return (
+      <>
+        {clickLoading ? (
+          loading ? (
+            <div className="Loader">
+              <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="white"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            </div>
+          ) : (
+            <></>
+          )
+        ) : (
+          <button className="Button" onClick={onSecClick}>
+            {"Load Data"}
+          </button>
+        )}
+      </>
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -112,7 +159,28 @@ function App() {
       </header>
 
       <main className="Main">
-        <div className="Main-Content">
+        <div className="Main-Content-Container">
+          <div className="Main-Content">
+            <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
+          </div>
+
+          <TitleButton
+          clickLoading = {clickedGlassdoor}
+          loading = {glassDoorLoading}
+          onSecClick = {handleGlassdoorClick}
+          
+          />
+
+          <CompanyList data={glassdoorData} />
+        </div>
+
+        {/* <div className = "Main-Content-Container">
+          <div className="Main-Content">
+            <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
+          </div>
+        </div> */}
+
+        {/* <div className="Main-Content">
           <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
 
           {clickedGlassdoor ? (
@@ -186,10 +254,9 @@ function App() {
               </div>
             ))
           )}
-        </div>
- 
+        </div> */}
       </main>
-
+      {/* 
       <section className="bottom-container">
             <div className = "Main-Content">
             <h2 className="Subtitle">{"ShotSpotter News"}</h2>
@@ -233,7 +300,7 @@ function App() {
             ))
           )}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

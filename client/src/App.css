@@ -45,11 +45,11 @@
   border-radius: 8px;
   color: white;
   width: 30vw;
-  margin-bottom: 5vw;
+  /* margin-bottom: 5vw; */
 }
 
 .List {
-  width: 80%;
+  /* width: 80%; */
   display: flex;
   justify-content: space-between;
   background-color: black;
@@ -152,4 +152,32 @@
 .bruh {
   display: flex;
   flex-direction: column
+}
+
+
+.Main-Content-Container {
+  display: flex;
+  width: 50vw;
+  background-color: red;
+  flex-direction: column;
+  align-items: center;
+}
+
+.List-Container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: green;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  height: 30vw;
+
+
+}
+
+.List-Sub-Container {
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  /* width: 100%; */
 }

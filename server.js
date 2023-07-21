@@ -35,8 +35,8 @@ app.get("/ratings", async (req, res) => {
 
   
   res.json({express: {
-    Company: response.Company,
-    Rating: response.Rating
+    name: response.Company,
+    other: response.Rating
   }})
 
 });
