@@ -21,12 +21,14 @@ function App() {
   const [jobData, setJobData] = useState(null);
   const [newsData, setNewsData] = useState(null);
 
+  const [newsSearch, setNewsSearch] = useState("");
+
   // Get the Ratings data
   async function getRatings() {
     let final = [];
 
     for (let i = 0; i < constants.glassDoor.length; i++) {
-      const response = await fetch("/ratings")
+      const response = await fetch("/ratings?iter=" + i.toString())
         .then(async function (res) {
           return await res.json();
         })
@@ -54,7 +56,8 @@ function App() {
 
   // Get news data
   async function getNews() {
-    const response = await fetch("/news");
+    console.log("IN GET NEWS")
+    const response = await fetch("/news?search=" + newsSearch);
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -100,7 +103,15 @@ function App() {
       });
   };
 
-  const CompanyList = ({data}) => {
+  const handleSubmit = () => {
+
+    console.log("HANDLE SUBMIT")
+
+    getNews()
+
+  }
+
+  const CompanyList = ({ data }) => {
     return (
       <>
         {glassDoorLoading ? (
@@ -119,7 +130,7 @@ function App() {
     );
   };
 
-  const TitleButton = ({clickLoading, loading, onSecClick}) => {  
+  const TitleButton = ({ clickLoading, loading, onSecClick }) => {
     return (
       <>
         {clickLoading ? (
@@ -148,24 +159,25 @@ function App() {
     );
   };
 
-  const MainCont = ({title, clickLoading, loading, onSecClick, data}) => {
-    return(
+  const MainCont = ({ title, clickLoading, loading, onSecClick, data }) => {
+    return (
       <div className="Main-Content-Container">
-      <div className="Main-Content">
-        <h2 className="Subtitle">{title}</h2>
+        <div className="Main-Content">
+          <h2 className="Subtitle">{title}</h2>
+        </div>
+
+        <TitleButton
+          clickLoading={clickLoading}
+          loading={loading}
+          onSecClick={onSecClick}
+        />
+
+        <CompanyList data={data} />
       </div>
+    );
+  };
 
-      <TitleButton
-      clickLoading = {clickLoading}
-      loading = {loading}
-      onSecClick = {onSecClick}
-      
-      />
 
-      <CompanyList data={data} />
-    </div>
-    )
-  }
 
   return (
     <div className="App">
@@ -180,29 +192,27 @@ function App() {
       </header>
 
       <main className="Main">
-
         <MainCont
-        clickLoading = {clickedGlassdoor}
-        loading = {glassDoorLoading}
-        onSecClick={handleGlassdoorClick}
-        data = {glassdoorData}
-        title = "Glassdoor Ratings"
+          clickLoading={clickedGlassdoor}
+          loading={glassDoorLoading}
+          onSecClick={handleGlassdoorClick}
+          data={glassdoorData}
+          title="Glassdoor Ratings"
         />
         <MainCont
-        clickLoading = {clickedOpenings}
-        loading = {openingsLoading}
-        onSecClick={handleOpeningsClick}
-        data = {jobData}
-        title = {"Job Openings"}
+          clickLoading={clickedOpenings}
+          loading={openingsLoading}
+          onSecClick={handleOpeningsClick}
+          data={jobData}
+          title={"Job Openings"}
         />
-
-
       </main>
-      
+
       <section className="bottom-container">
-            <div className = "Main-Content">
-            <h2 className="Subtitle">{"ShotSpotter News"}</h2>
-      {clickedNews ? (
+        <div className="Main-Content">
+          <h2 className="Subtitle">{"ShotSpotter News"}</h2>
+
+          {/* {clickedNews ? (
             newsLoading ? (
               <div className="Loader">
                 <ThreeDots
@@ -240,7 +250,16 @@ function App() {
                 <h4 className="news-date">{comp["date"]}</h4>
               </div>
             ))
-          )}
+          )} */}
+        </div>
+
+        <div className = {"Input-Container"}>
+        <input
+            type="text"
+            value={newsSearch}
+            onChange={(e) => setNewsSearch(e.target.value)}
+          />
+          <input type="submit" value="Submit" onClick={getNews}/>
         </div>
       </section>
     </div>

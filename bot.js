@@ -34,7 +34,7 @@ const ratings = async (comp) => {
   } finally {
     await browser.close();
   }
-  
+
   return { Company: comp.company, Rating: rating };
 };
 
@@ -96,7 +96,7 @@ const news = async (link) => {
       waitUntil: "domcontentloaded",
       timeout: 0,
     });
-
+//*[@id="rso"]/div/div
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
 
     let news_rep = await page.evaluate((el) => el.innerText, getXpath);
