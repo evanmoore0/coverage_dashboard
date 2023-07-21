@@ -1,29 +1,3 @@
-const allLinks = {
-  glassDoor: [
-    {
-      company: "ANET",
-      link: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
-    },
-    {
-      company: "AVNW",
-      link: "https://www.glassdoor.com/Reviews/Aviat-Networks-Reviews-E304176.htm",
-    },
-    {
-      company: "AXON",
-      link: "https://www.glassdoor.com/Reviews/Axon-Reviews-E1597674.htm",
-    },
-    {
-      company: "BLZE",
-      link: "https://www.glassdoor.com/Reviews/Backblaze-Reviews-E1197085.htm",
-    },
-    {
-      company: "BOX",
-      link: "https://www.glassdoor.com/Reviews/Box-Reviews-E254092.htm",
-    },
-    {
-      company: "CMBM",
-      link: "https://www.glassdoor.com/Reviews/Cambium-Networks-Reviews-E466115.htm",
-    },
 //     {
 //       company: "CSCO",
 //       link: "https://www.glassdoor.com/Reviews/Cisco-Systems-Reviews-E1425.htm",
@@ -60,6 +34,33 @@ const allLinks = {
 //       company: "VRNS",
 //       link: "https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm",
 //     },
+
+const allLinks = {
+  glassDoor: [
+    {
+      company: "ANET",
+      link: "https://www.glassdoor.com/Reviews/Arista-Networks-Reviews-E295128.htm",
+    },
+    {
+      company: "AVNW",
+      link: "https://www.glassdoor.com/Reviews/Aviat-Networks-Reviews-E304176.htm",
+    },
+    {
+      company: "AXON",
+      link: "https://www.glassdoor.com/Reviews/Axon-Reviews-E1597674.htm",
+    },
+    {
+      company: "BLZE",
+      link: "https://www.glassdoor.com/Reviews/Backblaze-Reviews-E1197085.htm",
+    },
+    {
+      company: "BOX",
+      link: "https://www.glassdoor.com/Reviews/Box-Reviews-E254092.htm",
+    },
+    {
+      company: "CMBM",
+      link: "https://www.glassdoor.com/Reviews/Cambium-Networks-Reviews-E466115.htm",
+    }
   ],
   openings: [
     {

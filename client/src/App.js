@@ -146,6 +146,25 @@ function App() {
     );
   };
 
+  const MainCont = () => {
+    return(
+      <div className="Main-Content-Container">
+      <div className="Main-Content">
+        <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
+      </div>
+
+      <TitleButton
+      clickLoading = {clickedGlassdoor}
+      loading = {glassDoorLoading}
+      onSecClick = {handleGlassdoorClick}
+      
+      />
+
+      <CompanyList data={glassdoorData} />
+    </div>
+    )
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -159,7 +178,9 @@ function App() {
       </header>
 
       <main className="Main">
-        <div className="Main-Content-Container">
+
+        <MainCont/>
+        {/* <div className="Main-Content-Container">
           <div className="Main-Content">
             <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
           </div>
@@ -172,7 +193,7 @@ function App() {
           />
 
           <CompanyList data={glassdoorData} />
-        </div>
+        </div> */}
 
         {/* <div className = "Main-Content-Container">
           <div className="Main-Content">
