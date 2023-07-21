@@ -83,6 +83,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  border: 1px solid black;
 }
 
 .Loader {
@@ -158,16 +159,15 @@
 .Main-Content-Container {
   display: flex;
   width: 50vw;
-  background-color: red;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10vw;
 }
 
 .List-Container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: green;
   justify-content: space-evenly;
   flex-wrap: wrap;
   height: 30vw;

@@ -148,21 +148,21 @@ function App() {
     );
   };
 
-  const MainCont = () => {
+  const MainCont = ({title, clickLoading, loading, onSecClick, data}) => {
     return(
       <div className="Main-Content-Container">
       <div className="Main-Content">
-        <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
+        <h2 className="Subtitle">{title}</h2>
       </div>
 
       <TitleButton
-      clickLoading = {clickedGlassdoor}
-      loading = {glassDoorLoading}
-      onSecClick = {handleGlassdoorClick}
+      clickLoading = {clickLoading}
+      loading = {loading}
+      onSecClick = {onSecClick}
       
       />
 
-      <CompanyList data={glassdoorData} />
+      <CompanyList data={data} />
     </div>
     )
   }
@@ -181,105 +181,24 @@ function App() {
 
       <main className="Main">
 
-        <MainCont/>
-        {/* <div className="Main-Content-Container">
-          <div className="Main-Content">
-            <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
-          </div>
+        <MainCont
+        clickLoading = {clickedGlassdoor}
+        loading = {glassDoorLoading}
+        onSecClick={handleGlassdoorClick}
+        data = {glassdoorData}
+        title = "Glassdoor Ratings"
+        />
+        <MainCont
+        clickLoading = {clickedOpenings}
+        loading = {openingsLoading}
+        onSecClick={handleOpeningsClick}
+        data = {jobData}
+        title = {"Job Openings"}
+        />
 
-          <TitleButton
-          clickLoading = {clickedGlassdoor}
-          loading = {glassDoorLoading}
-          onSecClick = {handleGlassdoorClick}
-          
-          />
 
-          <CompanyList data={glassdoorData} />
-        </div> */}
-
-        {/* <div className = "Main-Content-Container">
-          <div className="Main-Content">
-            <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
-          </div>
-        </div> */}
-
-        {/* <div className="Main-Content">
-          <h2 className="Subtitle">{"Glassdoor Ratings"}</h2>
-
-          {clickedGlassdoor ? (
-            glassDoorLoading ? (
-              <div className="Loader">
-                <ThreeDots
-                  height="80"
-                  width="80"
-                  radius="9"
-                  color="white"
-                  ariaLabel="three-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClassName=""
-                  visible={true}
-                />
-              </div>
-            ) : (
-              <></>
-            )
-          ) : (
-            <button className="Button" onClick={handleGlassdoorClick}>
-              {"Load Data"}
-            </button>
-          )}
-
-          {glassDoorLoading ? (
-            <></>
-          ) : (
-            glassdoorData?.map((comp, key) => (
-              <div className="List" key={key}>
-                <h3 className="Company-Name">{comp["Company"]}</h3>
-                <h3 className="Company-Name">{comp["Rating"]}</h3>
-              </div>
-            ))
-          )}
-        </div>
-
-        <div className="Main-Content">
-          <h2 className="Subtitle">{"Job Openings"}</h2>
-
-          {clickedOpenings ? (
-            openingsLoading ? (
-              <div className="Loader">
-                <ThreeDots
-                  height="80"
-                  width="80"
-                  radius="9"
-                  color="white"
-                  ariaLabel="three-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClassName=""
-                  visible={true}
-                />
-              </div>
-            ) : (
-              <></>
-            )
-          ) : (
-            <button className="Button" onClick={handleOpeningsClick}>
-              {"Load Data"}
-            </button>
-          )}
-
-          {openingsLoading ? (
-            <></>
-          ) : (
-            jobData?.map((comp, key) => (
-              <div className="List" key={key}>
-                <h3 className="Company-Name">{comp["Company"]}</h3>
-                <h3 className="Company-Name">{comp["Openings"]}</h3>
-              </div>
-            ))
-          )}
-        </div> */}
       </main>
-      {/* 
+      
       <section className="bottom-container">
             <div className = "Main-Content">
             <h2 className="Subtitle">{"ShotSpotter News"}</h2>
@@ -323,7 +242,7 @@ function App() {
             ))
           )}
         </div>
-      </section> */}
+      </section>
     </div>
   );
 }
