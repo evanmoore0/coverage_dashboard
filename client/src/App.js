@@ -57,6 +57,7 @@ function App() {
   // Get news data
   async function getNews() {
     console.log("IN GET NEWS")
+    
     const response = await fetch("/news?search=" + newsSearch);
     const body = await response.json();
 
@@ -260,6 +261,22 @@ function App() {
             onChange={(e) => setNewsSearch(e.target.value)}
           />
           <input type="submit" value="Submit" onClick={getNews}/>
+        </div>
+
+        <div>
+        {newsLoading ? (
+            <></>
+          ) : (
+            newsData?.map((comp, key) => (
+              <div className="new-container" key={key}>
+                <h1 className="news-pub">{comp["publisher"]}</h1>
+                <h2 className="news-headline">{comp["headline"]}</h2>
+                <h3 className="news-description">{comp["description"]}</h3>
+                <h4 className="news-date">{comp["date"]}</h4>
+              </div>
+            ))
+          )} 
+
         </div>
       </section>
     </div>
