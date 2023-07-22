@@ -30,6 +30,7 @@ const ratings = async (comp) => {
     rating = await page.evaluate((el) => el.innerText, getXpath);
   } catch (error) {
     console.log(error);
+    alert(error)
     return { Company: comp.company, Rating: "N/A (Error)" };
   } finally {
     await browser.close();
@@ -99,7 +100,22 @@ const news = async (link) => {
 //*[@id="rso"]/div/div
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
 
+    //HERHEHRHEHREHHRE
+    // const test = await page.$$('.WlydOe')
+
+    // for (let bruh in test) {
+    //     console.log(test[0].getProperty("href"))
+    //     console.log(test)
+    // }
+
+    // let test_n = await page.evaluate((el) => el.getProperty('href'), test)
+
     let news_rep = await page.evaluate((el) => el.innerText, getXpath);
+
+    // Get news links using puppeteer
+
+    // console.log("NEWS LINKS")
+    // console.log(test_n)
 
     let new_news = news_rep.split("\n");
 

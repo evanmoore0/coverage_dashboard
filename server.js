@@ -45,15 +45,12 @@ app.get("/news", async (req, res) => {
   let response = []
   for (const page of links) {
 
-    console.log("PAGE")
-    console.log(page)
     let response_news = await news(page)
 
     response = response.concat(response_news)
 
   }
-    console.log("FINAL RESPONSE")
-    console.log(response)
+
     res.json({express: response})
 });
 

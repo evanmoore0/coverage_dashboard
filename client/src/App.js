@@ -56,8 +56,8 @@ function App() {
 
   // Get news data
   async function getNews() {
-    console.log("IN GET NEWS")
-    
+    console.log("IN GET NEWS");
+
     const response = await fetch("/news?search=" + newsSearch);
     const body = await response.json();
 
@@ -92,25 +92,19 @@ function App() {
       });
   };
 
-  const handleNewsClick = () => {
+  const handleNewsClick = async () => {
     setClickedNews(true);
-    getNews()
+    await getNews()
       .then((data) => {
         setNewsData(data.express);
       })
       .catch((err) => alert(err.message))
       .finally(() => {
         setNewsLoading(false);
+        setClickedNews(false)
       });
   };
 
-  const handleSubmit = () => {
-
-    console.log("HANDLE SUBMIT")
-
-    getNews()
-
-  }
 
   const CompanyList = ({ data }) => {
     return (
@@ -138,10 +132,10 @@ function App() {
           loading ? (
             <div className="Loader">
               <ThreeDots
-                height="80"
-                width="80"
+                height="20"
+                width="20"
                 radius="9"
-                color="white"
+                color="black"
                 ariaLabel="three-dots-loading"
                 wrapperStyle={{}}
                 wrapperClassName=""
@@ -178,8 +172,6 @@ function App() {
     );
   };
 
-
-
   return (
     <div className="App">
       <header className="App-header">
@@ -212,71 +204,34 @@ function App() {
       <section className="bottom-container">
         <div className="Main-Content">
           <h2 className="Subtitle">{"ShotSpotter News"}</h2>
-
-          {/* {clickedNews ? (
-            newsLoading ? (
-              <div className="Loader">
-                <ThreeDots
-                  height="80"
-                  width="80"
-                  radius="9"
-                  color="white"
-                  ariaLabel="three-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClassName=""
-                  visible={true}
-                />
-              </div>
-            ) : (
-              <></>
-            )
-          ) : (
-            <button className="Button" onClick={handleNewsClick}>
-              {"Load Data"}
-            </button>
-          )}
-            </div>
-
-      <div className="news-container">
-         
-
-          {newsLoading ? (
-            <></>
-          ) : (
-            newsData?.map((comp, key) => (
-              <div className="new-container" key={key}>
-                <h1 className="news-pub">{comp["publisher"]}</h1>
-                <h2 className="news-headline">{comp["headline"]}</h2>
-                <h3 className="news-description">{comp["description"]}</h3>
-                <h4 className="news-date">{comp["date"]}</h4>
-              </div>
-            ))
-          )} */}
         </div>
 
-        <div className = {"Input-Container"}>
-        <input
+        <div className={"Input-Container"}>
+          <input
             type="text"
             value={newsSearch}
             onChange={(e) => setNewsSearch(e.target.value)}
+            className = {"News-Input"}
+            placeholder="search..."
           />
-          <input type="submit" value="Submit" onClick={getNews}/>
+          <input className = {"News-Submit"} type="submit" value={clickedNews ? "loading" : "search"} onClick={handleNewsClick} disabled = {clickedNews}/>
         </div>
 
-        <div>
-        {newsLoading ? (
+        <div className = {"News-Container"}>
+          {newsLoading ? (
             <></>
           ) : (
-            newsData?.map((comp, key) => (
-              <div className="new-container" key={key}>
-                <h1 className="news-pub">{comp["publisher"]}</h1>
-                <h2 className="news-headline">{comp["headline"]}</h2>
-                <h3 className="news-description">{comp["description"]}</h3>
-                <h4 className="news-date">{comp["date"]}</h4>
-              </div>
-            ))
-          )} 
-
+            <>
+              {newsData?.map((comp, key) => (
+                <div className="new-container" key={key}>
+                  <h1 className="news-pub">{comp["publisher"]}</h1>
+                  <h2 className="news-headline">{comp["headline"]}</h2>
+                  <h3 className="news-description">{comp["description"]}</h3>
+                  <h4 className="news-date">{comp["date"]}</h4>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </section>
     </div>
