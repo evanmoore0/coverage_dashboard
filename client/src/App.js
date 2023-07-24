@@ -56,8 +56,6 @@ function App() {
 
   // Get news data
   async function getNews(search) {
-    console.log("IN GET NEWS");
-
     const response = await fetch("/news?search=" + search);
     const body = await response.json();
 
@@ -108,20 +106,15 @@ function App() {
   const handleAllNewsClick = async () => {
     setClickedNews(true);
 
-    console.log("HERHE")
-
     let final = [];
 
     for (let company of constants.news_comps) {
-      console.log("Company " + company);
       await fetch("/allnews?search=" + company)
         .then(async function (res) {
           return await res.json();
         })
         .then((data) => {
           final.push(data.express);
-          console.log("HI Comapny " + company)
-          console.log(data)
         })
         .catch((err) => alert(err.message));
 
@@ -129,9 +122,6 @@ function App() {
       //   final.concat(data.express)
       // }).catch((err) => alert(err.message))
     }
-
-    console.log("FINAL FLatten")
-    console.log(final.flat(1))
     final = final.flat(1)
     final = final.sort((a, b) => b.comp - a.comp);
 
@@ -260,7 +250,7 @@ function App() {
             onClick={handleNewsClick}
             disabled={clickedNews}
           />
-          <button className={"All-Button"} onClick={handleAllNewsClick}>
+          <button className={"News-Submit"} onClick={handleAllNewsClick}>
             ALL
           </button>
         </div>
@@ -271,12 +261,15 @@ function App() {
           ) : (
             <>
               {newsData?.map((comp, key) => (
-                <div className="new-container" key={key}>
-                  <h1 className="news-pub">{comp["publisher"]}</h1>
+                <a className="new-container" key={key} href = {comp.link} target="_blank">
+                  <div className = "news-header">
+                    <h1 className="news-pub">{comp["publisher"]}</h1>
+                    <h1 className = "news-ticker">{comp["company"]}</h1>
+                  </div>
                   <h2 className="news-headline">{comp["headline"]}</h2>
                   <h3 className="news-description">{comp["description"]}</h3>
                   <h4 className="news-date">{comp["date"]}</h4>
-                </div>
+                </a>
               ))}
             </>
           )}

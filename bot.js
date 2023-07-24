@@ -77,7 +77,7 @@ const openings = async (comp) => {
   return { Company: comp.company, Rating: rating };
 };
 
-const news = async (link) => {
+const news = async (link, company) => {
   const userAgent = new UserAgent();
 
   const browser = await puppeteer.launch({
@@ -102,7 +102,9 @@ const news = async (link) => {
 
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
 
+    const hrefs = await page.$$eval('a', as => as.map(a => a.href));
 
+    const final_links = hrefs.filter((item) => item.trim() !== '' && !item.includes('google.com'))
 
     //HERHEHRHEHREHHRE
     // const test = await page.$$('.WlydOe')
@@ -125,9 +127,11 @@ const news = async (link) => {
     }
 
     let count = 3;
+    let otherCount = 0;
     for (let i = 0; i < new_news.length; i++) {
       if (i == count) {
         count += 5;
+        otherCount +=1;
         continue;
       } else if (i % 5 == 0) {
         let comp = new_news[i + 4];
@@ -154,12 +158,17 @@ const news = async (link) => {
 
         // Console.log everything
 
+        console.log("HERE")
+        console.log(otherCount)
+      
         final_news.push({
           publisher: new_news[i],
           headline: new_news[i + 1],
           description: new_news[i + 2],
           date: new_news[i + 4],
-          comp: comp
+          comp: comp,
+          link: final_links[otherCount],
+          company: company
         });
       }
     }
@@ -175,8 +184,7 @@ const news = async (link) => {
     await browser.close();   
   }
 
-  console.log("HERE bot")
-  console.log(final_news)
+
   return final_news;
 };
 

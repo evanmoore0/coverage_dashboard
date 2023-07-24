@@ -196,7 +196,7 @@
   padding: 10px;
   font-size: 15px;
   margin-top: 20px;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .News-Submit {
@@ -205,7 +205,9 @@
   padding: 1vh;
   border-radius: 8px;
   color: white;
-  cursor: pointer
+  cursor: pointer;
+  /* margin-right: ; */
+  margin-left: 10px
 }
 
 .News-Input:focus {
@@ -226,4 +228,31 @@
   border: 1px solid white;
   cursor:none;
   color: white
+}
+
+
+a:link { text-decoration: none; }
+
+
+a:visited { text-decoration: none; }
+
+
+a:hover { text-decoration: none; }
+
+
+a:active { text-decoration: none; }
+
+.news-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-ticker {
+  color: lightblue;
+  font-size: 10px;
+  font-weight: bold;
+  font-size: 12px;
 }
