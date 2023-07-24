@@ -114,7 +114,7 @@ function App() {
 
     for (let company of constants.news_comps) {
       console.log("Company " + company);
-      await fetch("/news?search=" + company)
+      await fetch("/allnews?search=" + company)
         .then(async function (res) {
           return await res.json();
         })
@@ -128,6 +128,8 @@ function App() {
       // }).catch((err) => alert(err.message))
     }
     final = final.sort((a, b) => b.comp - a.comp);
+
+    setNewsData(final)
 
     // if (response.status !== 200) {
     //   throw Error(body.message);
