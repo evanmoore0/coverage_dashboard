@@ -105,6 +105,28 @@ function App() {
       });
   };
 
+  const handleAllNewsClick = async () => {
+    setClickedNews(true);
+
+    let final = []
+
+    for (let company of constants.news) {
+      const response = await fetch("/news?search=" + company);
+      const body = await response.json();
+
+      final.concat(body.express)
+    }
+
+    final = final.sort((a,b) => b.comp - a.comp)
+
+    // if (response.status !== 200) {
+    //   throw Error(body.message);
+    // }
+
+    setNewsLoading(false)
+    setClickedNews(false)
+  }
+
 
   const CompanyList = ({ data }) => {
     return (
@@ -215,6 +237,9 @@ function App() {
             placeholder="search..."
           />
           <input className = {"News-Submit"} type="submit" value={clickedNews ? "loading" : "search"} onClick={handleNewsClick} disabled = {clickedNews}/>
+          <button className = {"All-Button"} onClick={handleAllNewsClick}>
+            ALL
+          </button>
         </div>
 
         <div className = {"News-Container"}>

@@ -1,4 +1,21 @@
 export const constants = {
+  news: [
+    "Arista Networks",
+    "Aviat Networks",
+    "Axon Enterprise",
+    "Backblaze",
+    "Box",
+    "Cambium Networks",
+    "Cisco Systems",
+    "Dynatrace",
+    "New Relic",
+    "Nutanix",
+    "Ooma",
+    "Ribbon Communications",
+    "SolarWinds",
+    "SoundThinking",
+    "Varonis Systems"
+  ],
   glassDoor: [
     {
       company: "ANET",

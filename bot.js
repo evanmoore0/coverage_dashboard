@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const UserAgent = require("user-agents");
+const moment = require("moment");
 
 const ratings = async (comp) => {
   const userAgent = new UserAgent();
@@ -30,7 +31,7 @@ const ratings = async (comp) => {
     rating = await page.evaluate((el) => el.innerText, getXpath);
   } catch (error) {
     console.log(error);
-    alert(error)
+    alert(error);
     return { Company: comp.company, Rating: "N/A (Error)" };
   } finally {
     await browser.close();
@@ -97,7 +98,7 @@ const news = async (link) => {
       waitUntil: "domcontentloaded",
       timeout: 0,
     });
-//*[@id="rso"]/div/div
+    //*[@id="rso"]/div/div
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
 
     //HERHEHRHEHREHHRE
@@ -119,26 +120,76 @@ const news = async (link) => {
 
     let new_news = news_rep.split("\n");
 
-    if(new_news[0] == "Sort by date") {
-        new_news.shift()
+    if (new_news[0] == "Sort by date") {
+      new_news.shift();
     }
 
+    console.log("HERHE HI ")
+    // console.log(moment.)
     let count = 3;
     for (let i = 0; i < new_news.length; i++) {
       if (i == count) {
         count += 5;
         continue;
       } else if (i % 5 == 0) {
+        let comp = new_news[i + 4];
+        let d = new_news[i + 4]?.split(" ");
+        console.log("D ")
+        console.log(d)
+        // console.log(d.includes("week")
+
+        let now = moment()
+
+        if (d.includes("month") || d.includes("months")){
+            comp = now.subtract(parseInt(d[0]), "M").unix();
+        }else if (d.includes("day") || d.includes("days")) {
+            comp = now.subtract(parseInt(d[0]), "d").unix()
+        }else if (d.includes("hour") || d.includes("hours")) {
+            comp = now.subtract(parseInt(d[0]), "h").unix()
+        }else if (d.includes("mins") || d.includes("min")){
+            comp = now.subtract(parseInt(d[0]), "s").unix()
+        } else if(d.includes("weeks") || d.includes("week")){
+            comp = now.subtract(parseInt(d[0]) * 7, "d").unix()
+        } else {
+            // console.log("DEFAULT ")
+            // console.log(new_news[i+4])
+            // comp = moment(new_news[i+4])
+            // console.log
+            let test = new Date(new_news[i+4])
+            comp = moment(test).unix()
+            console.log("COMP")
+            console.log(comp)
+         }
+
+
+        // for (let i of d) {
+
+        //   let now = moment()
+        //   if (i === "month" || i === "months") {
+        //     comp = now.subtract(parseInt(d[0]), "M");
+        //   } else if (i === "day" || i === "days") {
+        //     comp = now.subtract(parseInt(d[0]), "d");
+        //   } else if (i === "hour" || i === "hours") {
+        //     comp = now.subtract(parseInt(d[0]), "h");
+        //   } else if (i === "minutes" || i === "minute") {
+        //     comp = now.subtract(parseInt(d[0]), "m");
+        //   } else if (i === "seconds" || i === "second") {
+        //     comp = now.subtract(parseInt(d[0], "s"));
+        //   } else if (i === "weeks" || i === "week") {
+        //     comp = now.subtract(parseInt(d[0]) * 7, 'd')
+        //   } 
+        // }
         final_news.push({
           publisher: new_news[i],
           headline: new_news[i + 1],
           description: new_news[i + 2],
           date: new_news[i + 4],
+          comp: comp
         });
       }
-    
     }
   } catch (error) {
+    console.log("ERRROR")
     console.log(error);
     return {
       publisher: "N/A",
@@ -147,8 +198,13 @@ const news = async (link) => {
       date: "N/A",
     };
   } finally {
-    await browser.close();
+    await browser.close();   
   }
+
+  // console.log(final_news)
+
+  // console.log("FINAL NEWS")
+
 
   return final_news;
 };
