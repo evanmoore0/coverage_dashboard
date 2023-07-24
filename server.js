@@ -61,7 +61,7 @@ app.get("/allnews", async (req, res) => {
   const newsLink = `https://www.google.com/search?q=${req.query.search}&tbm=nws&sa=X&ved=2ahUKEwjCpuCdz6CAAxXyM0QIHUWTCCsQ0pQJegQICxAB&biw=619&bih=642&dpr=2.2`
   let response_news = await news(newsLink)
   res.json({
-    express: response
+    express: response_news
   })
 })
 

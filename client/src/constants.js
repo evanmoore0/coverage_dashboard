@@ -1,5 +1,5 @@
 export const constants = {
-  news: [
+  news_comps: [
     "Arista Networks",
     "Aviat Networks",
     "Axon Enterprise",

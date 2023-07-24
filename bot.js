@@ -99,7 +99,10 @@ const news = async (link) => {
       timeout: 0,
     });
     //*[@id="rso"]/div/div
+
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
+
+
 
     //HERHEHRHEHREHHRE
     // const test = await page.$$('.WlydOe')
@@ -115,17 +118,12 @@ const news = async (link) => {
 
     // Get news links using puppeteer
 
-    // console.log("NEWS LINKS")
-    // console.log(test_n)
-
     let new_news = news_rep.split("\n");
 
     if (new_news[0] == "Sort by date") {
       new_news.shift();
     }
 
-    console.log("HERHE HI ")
-    // console.log(moment.)
     let count = 3;
     for (let i = 0; i < new_news.length; i++) {
       if (i == count) {
@@ -134,9 +132,6 @@ const news = async (link) => {
       } else if (i % 5 == 0) {
         let comp = new_news[i + 4];
         let d = new_news[i + 4]?.split(" ");
-        console.log("D ")
-        console.log(d)
-        // console.log(d.includes("week")
 
         let now = moment()
 
@@ -151,34 +146,10 @@ const news = async (link) => {
         } else if(d.includes("weeks") || d.includes("week")){
             comp = now.subtract(parseInt(d[0]) * 7, "d").unix()
         } else {
-            // console.log("DEFAULT ")
-            // console.log(new_news[i+4])
-            // comp = moment(new_news[i+4])
-            // console.log
             let test = new Date(new_news[i+4])
             comp = moment(test).unix()
-            console.log("COMP")
-            console.log(comp)
          }
 
-
-        // for (let i of d) {
-
-        //   let now = moment()
-        //   if (i === "month" || i === "months") {
-        //     comp = now.subtract(parseInt(d[0]), "M");
-        //   } else if (i === "day" || i === "days") {
-        //     comp = now.subtract(parseInt(d[0]), "d");
-        //   } else if (i === "hour" || i === "hours") {
-        //     comp = now.subtract(parseInt(d[0]), "h");
-        //   } else if (i === "minutes" || i === "minute") {
-        //     comp = now.subtract(parseInt(d[0]), "m");
-        //   } else if (i === "seconds" || i === "second") {
-        //     comp = now.subtract(parseInt(d[0], "s"));
-        //   } else if (i === "weeks" || i === "week") {
-        //     comp = now.subtract(parseInt(d[0]) * 7, 'd')
-        //   } 
-        // }
         final_news.push({
           publisher: new_news[i],
           headline: new_news[i + 1],
@@ -189,7 +160,6 @@ const news = async (link) => {
       }
     }
   } catch (error) {
-    console.log("ERRROR")
     console.log(error);
     return {
       publisher: "N/A",
@@ -200,12 +170,6 @@ const news = async (link) => {
   } finally {
     await browser.close();   
   }
-
-  // console.log(final_news)
-
-  // console.log("FINAL NEWS")
-
-
   return final_news;
 };
 

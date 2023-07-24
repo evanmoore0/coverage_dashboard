@@ -55,10 +55,10 @@ function App() {
   }
 
   // Get news data
-  async function getNews() {
+  async function getNews(search) {
     console.log("IN GET NEWS");
 
-    const response = await fetch("/news?search=" + newsSearch);
+    const response = await fetch("/news?search=" + search);
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -94,39 +94,48 @@ function App() {
 
   const handleNewsClick = async () => {
     setClickedNews(true);
-    await getNews()
+    await getNews(newsSearch)
       .then((data) => {
         setNewsData(data.express);
       })
       .catch((err) => alert(err.message))
       .finally(() => {
         setNewsLoading(false);
-        setClickedNews(false)
+        setClickedNews(false);
       });
   };
 
   const handleAllNewsClick = async () => {
     setClickedNews(true);
 
-    let final = []
+    console.log("HERHE")
 
-    for (let company of constants.news) {
-      const response = await fetch("/news?search=" + company);
-      const body = await response.json();
+    let final = [];
 
-      final.concat(body.express)
+    for (let company of constants.news_comps) {
+      console.log("Company " + company);
+      await fetch("/news?search=" + company)
+        .then(async function (res) {
+          return await res.json();
+        })
+        .then((data) => {
+          final.concat(data.express);
+        })
+        .catch((err) => alert(err.message));
+
+      // getNews(company).then((data) => {
+      //   final.concat(data.express)
+      // }).catch((err) => alert(err.message))
     }
-
-    final = final.sort((a,b) => b.comp - a.comp)
+    final = final.sort((a, b) => b.comp - a.comp);
 
     // if (response.status !== 200) {
     //   throw Error(body.message);
     // }
 
-    setNewsLoading(false)
-    setClickedNews(false)
-  }
-
+    setNewsLoading(false);
+    setClickedNews(false);
+  };
 
   const CompanyList = ({ data }) => {
     return (
@@ -233,16 +242,22 @@ function App() {
             type="text"
             value={newsSearch}
             onChange={(e) => setNewsSearch(e.target.value)}
-            className = {"News-Input"}
+            className={"News-Input"}
             placeholder="search..."
           />
-          <input className = {"News-Submit"} type="submit" value={clickedNews ? "loading" : "search"} onClick={handleNewsClick} disabled = {clickedNews}/>
-          <button className = {"All-Button"} onClick={handleAllNewsClick}>
+          <input
+            className={"News-Submit"}
+            type="submit"
+            value={clickedNews ? "loading" : "search"}
+            onClick={handleNewsClick}
+            disabled={clickedNews}
+          />
+          <button className={"All-Button"} onClick={handleAllNewsClick}>
             ALL
           </button>
         </div>
 
-        <div className = {"News-Container"}>
+        <div className={"News-Container"}>
           {newsLoading ? (
             <></>
           ) : (
