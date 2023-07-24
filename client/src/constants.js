@@ -2,19 +2,19 @@ export const constants = {
   news_comps: [
     "Arista Networks",
     "Aviat Networks",
-    // "Axon Enterprise",
-    // "Backblaze",
-    // "Box.com Software",
-    // "Cambium Networks",
-    // "Cisco Systems",
-    // "Dynatrace",
-    // "New Relic",
-    // "Nutanix",
-    // "Ooma",
-    // "Ribbon Communications",
-    // "SolarWinds",
-    // "SoundThinking",
-    // "Varonis Systems"
+    "Axon Enterprise",
+    "Backblaze",
+    "Box.com Software",
+    "Cambium Networks",
+    "Cisco Systems",
+    "Dynatrace",
+    "New Relic",
+    "Nutanix",
+    "Ooma",
+    "Ribbon Communications",
+    "SolarWinds",
+    "SoundThinking",
+    "Varonis Systems"
   ],
   glassDoor: [
     {
