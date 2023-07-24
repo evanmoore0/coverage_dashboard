@@ -133,6 +133,8 @@ const news = async (link) => {
         let comp = new_news[i + 4];
         let d = new_news[i + 4]?.split(" ");
 
+        
+
         let now = moment()
 
         if (d.includes("month") || d.includes("months")){
@@ -149,6 +151,8 @@ const news = async (link) => {
             let test = new Date(new_news[i+4])
             comp = moment(test).unix()
          }
+
+        // Console.log everything
 
         final_news.push({
           publisher: new_news[i],
@@ -170,6 +174,9 @@ const news = async (link) => {
   } finally {
     await browser.close();   
   }
+
+  console.log("HERE bot")
+  console.log(final_news)
   return final_news;
 };
 

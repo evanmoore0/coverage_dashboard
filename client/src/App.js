@@ -119,7 +119,9 @@ function App() {
           return await res.json();
         })
         .then((data) => {
-          final.concat(data.express);
+          final.push(data.express);
+          console.log("HI Comapny " + company)
+          console.log(data)
         })
         .catch((err) => alert(err.message));
 
@@ -127,6 +129,10 @@ function App() {
       //   final.concat(data.express)
       // }).catch((err) => alert(err.message))
     }
+
+    console.log("FINAL FLatten")
+    console.log(final.flat(1))
+    final = final.flat(1)
     final = final.sort((a, b) => b.comp - a.comp);
 
     setNewsData(final)

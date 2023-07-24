@@ -2,19 +2,19 @@ export const constants = {
   news_comps: [
     "Arista Networks",
     "Aviat Networks",
-    "Axon Enterprise",
-    "Backblaze",
-    "Box",
-    "Cambium Networks",
-    "Cisco Systems",
-    "Dynatrace",
-    "New Relic",
-    "Nutanix",
-    "Ooma",
-    "Ribbon Communications",
-    "SolarWinds",
-    "SoundThinking",
-    "Varonis Systems"
+    // "Axon Enterprise",
+    // "Backblaze",
+    // "Box.com Software",
+    // "Cambium Networks",
+    // "Cisco Systems",
+    // "Dynatrace",
+    // "New Relic",
+    // "Nutanix",
+    // "Ooma",
+    // "Ribbon Communications",
+    // "SolarWinds",
+    // "SoundThinking",
+    // "Varonis Systems"
   ],
   glassDoor: [
     {
@@ -45,38 +45,38 @@ export const constants = {
       company: "CSCO",
       link: "https://www.glassdoor.com/Reviews/Cisco-Systems-Reviews-E1425.htm",
     },
-    // {
-    //   company: "DT",
-    //   link: "https://www.glassdoor.com/Reviews/Dynatrace-Reviews-E309684.htm",
-    // },
-    // {
-    //   company: "NEWR",
-    //   link: "https://www.glassdoor.com/Reviews/New-Relic-Reviews-E461657.htm",
-    // },
-    // {
-    //   company: "NTNX",
-    //   link: "https://www.glassdoor.com/Reviews/Nutanix-Reviews-E429159.htm",
-    // },
-    // {
-    //   company: "OOMA",
-    //   link: "https://www.glassdoor.com/Reviews/ooma-Reviews-E273768.htm",
-    // },
-    // {
-    //   company: "RBBN",
-    //   link: "https://www.glassdoor.com/Reviews/Ribbon-Communications-Reviews-E2590888.htm",
-    // },
-    // {
-    //   company: "SWI",
-    //   link: "https://www.glassdoor.com/Reviews/SolarWinds-Reviews-E100286.htm",
-    // },
-    // {
-    //   company: "SSTI",
-    //   link: "https://www.glassdoor.com/Reviews/SoundThinking-Reviews-E366121.htm",
-    // },
-    // {
-    //   company: "VRNS",
-    //   link: "https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm",
-    // },
+    {
+      company: "DT",
+      link: "https://www.glassdoor.com/Reviews/Dynatrace-Reviews-E309684.htm",
+    },
+    {
+      company: "NEWR",
+      link: "https://www.glassdoor.com/Reviews/New-Relic-Reviews-E461657.htm",
+    },
+    {
+      company: "NTNX",
+      link: "https://www.glassdoor.com/Reviews/Nutanix-Reviews-E429159.htm",
+    },
+    {
+      company: "OOMA",
+      link: "https://www.glassdoor.com/Reviews/ooma-Reviews-E273768.htm",
+    },
+    {
+      company: "RBBN",
+      link: "https://www.glassdoor.com/Reviews/Ribbon-Communications-Reviews-E2590888.htm",
+    },
+    {
+      company: "SWI",
+      link: "https://www.glassdoor.com/Reviews/SolarWinds-Reviews-E100286.htm",
+    },
+    {
+      company: "SSTI",
+      link: "https://www.glassdoor.com/Reviews/SoundThinking-Reviews-E366121.htm",
+    },
+    {
+      company: "VRNS",
+      link: "https://www.glassdoor.com/Reviews/Varonis-Systems-Reviews-E300225.htm",
+    },
   ],
   openings: [
     {
