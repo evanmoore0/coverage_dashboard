@@ -1,10 +1,38 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ThreeDots } from "react-loader-spinner";
 
 import { constants } from "./constants";
 
+
+
+const test = [
+  {
+    name: "hi",
+    other: "bye"
+  },
+  {
+    name: "hi",
+    other: "bye"
+  },
+  {
+    name: "hi",
+    other: "bye"
+  },
+  {
+    name: "hi",
+    other: "bye"
+  },
+  {
+    name: "hi",
+    other: "bye"
+  },
+  {
+    name: "hi",
+    other: "bye"
+  },
+]
 function App() {
   // Loading states
   const [openingsLoading, setOpeningsLoading] = useState(true);
@@ -21,8 +49,6 @@ function App() {
   const [jobData, setJobData] = useState(null);
   const [newsData, setNewsData] = useState(null);
 
-  const [data,setData] = useState("HISSDF")
-
   const [newsSearch, setNewsSearch] = useState("");
 
   // Get the Ratings data
@@ -35,7 +61,7 @@ function App() {
           return await res.json();
         })
         .catch((err) => alert(err.message))
-         
+        final.push(response.express)
     }
     return final;
   }
@@ -47,11 +73,12 @@ function App() {
         .then(async function (res) {
           return await res.json();
         })
-        .catch((err) => alert(err.message));
-
-      final.push(response.express);
+        .catch((err) => alert(err.message))
+        final.push(response.express);
     }
 
+    console.log('final')
+    console.log(final)
     return final;
   }
 
@@ -80,14 +107,11 @@ function App() {
   };
 
   const handleOpeningsClick = async () => {
-
     setClickedOpenings(true);
 
-     await getOpenings()
+    await getOpenings()
       .then((data) => {
-        setJobData(data)
-        console.log("openings")
-        console.log(data)
+        setJobData(data);
       })
       .catch((err) => alert(err.message))
       .finally(() => {
@@ -140,10 +164,10 @@ function App() {
     setClickedNews(false);
   };
 
-  const CompanyList = ({ data }) => {
+  const CompanyList = ({ data, loading }) => {
     return (
       <>
-        {glassDoorLoading ? (
+        {loading ? (
           <></>
         ) : (
           <div className="List-Container">
@@ -201,7 +225,7 @@ function App() {
           onSecClick={onSecClick}
         />
 
-        <CompanyList data={data} />
+        <CompanyList data={data} loading = {loading}/>
       </div>
     );
   };
