@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ThreeDots } from "react-loader-spinner";
 
@@ -20,6 +20,8 @@ function App() {
   const [glassdoorData, setGlassdoorData] = useState(null);
   const [jobData, setJobData] = useState(null);
   const [newsData, setNewsData] = useState(null);
+
+  const [data,setData] = useState("HISSDF")
 
   const [newsSearch, setNewsSearch] = useState("");
 
@@ -43,8 +45,15 @@ function App() {
     return final;
   }
 
+
+  useEffect(() => {
+    console.log("FUCK")
+
+    console.log(jobData)
+  }, [jobData])
   // Get openings data
   async function getOpenings() {
+    console.log("GET openings");
     let final = [];
     for (let i = 0; i < constants.openings.length; i++) {
       const response = await fetch("/jobs?iter=" + i.toString())
@@ -53,10 +62,14 @@ function App() {
         })
         .catch((err) => alert(err.message));
 
-      final.push(response.express);
+      final.push(response);
+      // console.log("Push")
+      // console.log(final)
     }
 
-    return final;
+    // console.log("FINAL")
+    // console.log(final)
+    return final.express;
   }
 
   // Get news data
@@ -83,11 +96,18 @@ function App() {
       });
   };
 
-  const handleOpeningsClick = () => {
+  const handleOpeningsClick = async () => {
+    // console.log("HERE")
+    // setData("WTFHFH");
     setClickedOpenings(true);
-    getOpenings()
+    // setOpeningsLoading(false);
+    
+    // console.log("HERHEHHERHHEH")
+    // console.log(data)
+
+     await getOpenings()
       .then((data) => {
-        setJobData(data.express);
+        setJobData(data)
       })
       .catch((err) => alert(err.message))
       .finally(() => {
@@ -141,6 +161,8 @@ function App() {
   };
 
   const CompanyList = ({ data }) => {
+    console.log("DATA IN COMPANY LIST ")
+    console.log(data)
     return (
       <>
         {glassDoorLoading ? (

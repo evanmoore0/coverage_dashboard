@@ -42,6 +42,8 @@ const ratings = async (comp) => {
 
 const openings = async (comp) => {
   const userAgent = new UserAgent();
+  let openings = "N/A";
+
 
   const browser = await puppeteer.launch({
     headless: true,
@@ -51,12 +53,16 @@ const openings = async (comp) => {
       "--user-agent=" + userAgent + "",
     ],
   });
-
-  let openings = "N/A";
-
   try {
+
+
+    // console.log("HERE");
+    // console.log(comp);
     if (comp.ready) {
+
       const page = await browser.newPage();
+
+      // const page = await browser.newPage();
 
       await page.goto(comp.link, {
         waitUntil: "domcontentloaded",
@@ -66,7 +72,9 @@ const openings = async (comp) => {
       const [getXpath] = await page.$x(comp.xpath);
 
       openings = await page.evaluate((el) => el.innerText, getXpath);
-    } 
+      console.log("Openings")
+      console.log(openings)
+    }
   } catch (error) {
     console.log(error);
     return { Company: comp.ticker, Openings: "N/A (Error)" };
@@ -74,7 +82,8 @@ const openings = async (comp) => {
     await browser.close();
   }
 
-  return { Company: comp.company, Openings: openings };
+  console.log("END")
+  return { Company: comp.ticker, Other: openings };
 };
 
 const news = async (link, company) => {

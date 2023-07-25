@@ -79,18 +79,18 @@ export const constants = {
     },
   ],
   openings: [
-    {
-      ticker: "ANET", // Not done
-      link: "",
-      xpath: "",
-      ready: false,
-    },
-    {
-      ticker: "AVNW", // Good, Last
-      link: "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=0ec0c5a4-f3ba-4be4-be2b-5d725d77f8ed&ccId=19000101_000001&type=MP&lang=en_US",
-      xpath: "//*[@id='tileCurrentOpenings']",
-      ready: true,
-    },
+    // {
+    //   ticker: "ANET", // Not done
+    //   link: "",
+    //   xpath: "",
+    //   ready: false,
+    // },
+    // {
+    //   ticker: "AVNW", // Good, Last
+    //   link: "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=0ec0c5a4-f3ba-4be4-be2b-5d725d77f8ed&ccId=19000101_000001&type=MP&lang=en_US",
+    //   xpath: "//*[@id='tileCurrentOpenings']",
+    //   ready: false,
+    // },
     {
       ticker: "AXON", // Good, First
       link: "https://www.axon.com/careers/board",
@@ -104,18 +104,18 @@ export const constants = {
       xpath: "",
       ready: false,
     },
-    //   {
-    //     ticker: "BOX", // Good, First
-    //     link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
-    //     xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "CMBM", // Not done
-    //     link: "https://www.cambiumnetworks.com/about-cambium/careers/",
-    //     xpath: "",
-    //     ready: false,
-    //   },
+      {
+        ticker: "BOX", // Good, First
+        link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
+        xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
+        ready: true,
+      },
+      {
+        ticker: "CMBM", // Not done
+        link: "https://www.cambiumnetworks.com/about-cambium/careers/",
+        xpath: "",
+        ready: false,
+      },
     //   {
     //     ticker: "CSCO", // Good, Last
     //     link: "https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",

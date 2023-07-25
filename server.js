@@ -40,10 +40,13 @@ app.get("/jobs", async (req, res) => {
 
   let response = await openings(constants.openings[iter])
 
+  console.log('finish response')
+  console.log(response)
+
   res.json({
     express: {
       name: response.Company,
-      other: response.Openings
+      other: response.Other
     }
   })
 })
