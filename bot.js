@@ -52,29 +52,29 @@ const openings = async (comp) => {
     ],
   });
 
-  let rating = "N/A";
+  let openings = "N/A";
 
   try {
-    const page = await browser.newPage();
+    if (comp.ready) {
+      const page = await browser.newPage();
 
-    await page.goto(comp.link, {
-      waitUntil: "domcontentloaded",
-      timeout: 0,
-    });
+      await page.goto(comp.link, {
+        waitUntil: "domcontentloaded",
+        timeout: 0,
+      });
 
-    const [getXpath] = await page.$x(
-      '//*[@id="EmpStats"]/div/div[1]/div/div/div'
-    );
+      const [getXpath] = await page.$x(comp.xpath);
 
-    rating = await page.evaluate((el) => el.innerText, getXpath);
+      openings = await page.evaluate((el) => el.innerText, getXpath);
+    } 
   } catch (error) {
     console.log(error);
-    return { Company: comp.company, Rating: "N/A (Error)" };
+    return { Company: comp.ticker, Openings: "N/A (Error)" };
   } finally {
     await browser.close();
   }
 
-  return { Company: comp.company, Rating: rating };
+  return { Company: comp.company, Openings: openings };
 };
 
 const news = async (link, company) => {
@@ -102,9 +102,11 @@ const news = async (link, company) => {
 
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
 
-    const hrefs = await page.$$eval('a', as => as.map(a => a.href));
+    const hrefs = await page.$$eval("a", (as) => as.map((a) => a.href));
 
-    const final_links = hrefs.filter((item) => item.trim() !== '' && !item.includes('google.com'))
+    const final_links = hrefs.filter(
+      (item) => item.trim() !== "" && !item.includes("google.com")
+    );
 
     //HERHEHRHEHREHHRE
     // const test = await page.$$('.WlydOe')
@@ -131,36 +133,34 @@ const news = async (link, company) => {
     for (let i = 0; i < new_news.length; i++) {
       if (i == count) {
         count += 5;
-        otherCount +=1;
+        otherCount += 1;
         continue;
       } else if (i % 5 == 0) {
         let comp = new_news[i + 4];
         let d = new_news[i + 4]?.split(" ");
 
-        
+        let now = moment();
 
-        let now = moment()
-
-        if (d.includes("month") || d.includes("months")){
-            comp = now.subtract(parseInt(d[0]), "M").unix();
-        }else if (d.includes("day") || d.includes("days")) {
-            comp = now.subtract(parseInt(d[0]), "d").unix()
-        }else if (d.includes("hour") || d.includes("hours")) {
-            comp = now.subtract(parseInt(d[0]), "h").unix()
-        }else if (d.includes("mins") || d.includes("min")){
-            comp = now.subtract(parseInt(d[0]), "s").unix()
-        } else if(d.includes("weeks") || d.includes("week")){
-            comp = now.subtract(parseInt(d[0]) * 7, "d").unix()
+        if (d.includes("month") || d.includes("months")) {
+          comp = now.subtract(parseInt(d[0]), "M").unix();
+        } else if (d.includes("day") || d.includes("days")) {
+          comp = now.subtract(parseInt(d[0]), "d").unix();
+        } else if (d.includes("hour") || d.includes("hours")) {
+          comp = now.subtract(parseInt(d[0]), "h").unix();
+        } else if (d.includes("mins") || d.includes("min")) {
+          comp = now.subtract(parseInt(d[0]), "s").unix();
+        } else if (d.includes("weeks") || d.includes("week")) {
+          comp = now.subtract(parseInt(d[0]) * 7, "d").unix();
         } else {
-            let test = new Date(new_news[i+4])
-            comp = moment(test).unix()
-         }
+          let test = new Date(new_news[i + 4]);
+          comp = moment(test).unix();
+        }
 
         // Console.log everything
 
-        console.log("HERE")
-        console.log(otherCount)
-      
+        console.log("HERE");
+        console.log(otherCount);
+
         final_news.push({
           publisher: new_news[i],
           headline: new_news[i + 1],
@@ -168,7 +168,7 @@ const news = async (link, company) => {
           date: new_news[i + 4],
           comp: comp,
           link: final_links[otherCount],
-          company: company
+          company: company,
         });
       }
     }
@@ -181,9 +181,8 @@ const news = async (link, company) => {
       date: "N/A",
     };
   } finally {
-    await browser.close();   
+    await browser.close();
   }
-
 
   return final_news;
 };

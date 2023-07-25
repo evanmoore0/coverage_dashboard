@@ -87,73 +87,73 @@ const allLinks = {
       xpath: "",
       ready: false,
     },
-    //   {
-    //     ticker: "BOX", // Good, First
-    //     link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
-    //     xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "CMBM", // Not done
-    //     link: "https://www.cambiumnetworks.com/about-cambium/careers/",
-    //     xpath: "",
-    //     ready: false,
-    //   },
-    //   {
-    //     ticker: "CSCO", // Good, Last
-    //     link: "https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",
-    //     xpath: "//*[@id='content']/div/div[2]/div[1]/div/span",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "DT", // Good, Last,
-    //     link: "https://careers.dynatrace.com/jobs/",
-    //     xpath:
-    //       "//*[@id='content']/section[1]/div[3]/section/form/div[3]/aside/div[2]/div[2]/p/span",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "NEWR", // Good, Last
-    //     link: "https://newrelic.careers/en_US/careers",
-    //     xpath: "//*[@id='main']/div/div/section/div[3]/div[1]/div[1]/div[1]",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "NTNX", // Not done
-    //     link: "https://nutanix.eightfold.ai/careers?&domain=nutanix.com",
-    //     xpath: "//*[@id='target_anchor_']/div/span/div/div/span/div/div/strong",
-    //     ready: false,
-    //   },
-    //   {
-    //     ticker: "OOMA", // Not done
-    //     link: "https://boards.greenhouse.io/ooma",
-    //     xpath: "",
-    //     ready: false,
-    //   },
-    //   {
-    //     ticker: "RBBN", // Good, first
-    //     link: "https://vhr-genband.wd1.myworkdayjobs.com/ribboncareers",
-    //     xpath: "//*[@id='mainContent']/div/div[2]/section/p",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "SWI", // Good, Last,
-    //     link: "https://jobs.solarwinds.com/jobs/",
-    //     xpath: "/html/body/div[7]/div[2]/div/div/p",
-    //     ready: true,
-    //   },
-    //   {
-    //     ticker: "SSTI", // Not done
-    //     link: "https://www.soundthinking.com/careers/",
-    //     xpath: "",
-    //     ready: false,
-    //   },
-    //   {
-    //     ticker: "VRNS", // Not done
-    //     link: "https://careers.varonis.com/",
-    //     xpath: "",
-    //     ready: false,
-    //   },
+      {
+        ticker: "BOX", // Good, First
+        link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
+        xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
+        ready: true,
+      },
+      {
+        ticker: "CMBM", // Not done
+        link: "https://www.cambiumnetworks.com/about-cambium/careers/",
+        xpath: "",
+        ready: false,
+      },
+      {
+        ticker: "CSCO", // Good, Last
+        link: "https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",
+        xpath: "//*[@id='content']/div/div[2]/div[1]/div/span",
+        ready: true,
+      },
+      {
+        ticker: "DT", // Good, Last,
+        link: "https://careers.dynatrace.com/jobs/",
+        xpath:
+          "//*[@id='content']/section[1]/div[3]/section/form/div[3]/aside/div[2]/div[2]/p/span",
+        ready: true,
+      },
+      {
+        ticker: "NEWR", // Good, Last
+        link: "https://newrelic.careers/en_US/careers",
+        xpath: "//*[@id='main']/div/div/section/div[3]/div[1]/div[1]/div[1]",
+        ready: true,
+      },
+      {
+        ticker: "NTNX", // Not done
+        link: "https://nutanix.eightfold.ai/careers?&domain=nutanix.com",
+        xpath: "//*[@id='target_anchor_']/div/span/div/div/span/div/div/strong",
+        ready: false,
+      },
+      {
+        ticker: "OOMA", // Not done
+        link: "https://boards.greenhouse.io/ooma",
+        xpath: "",
+        ready: false,
+      },
+      {
+        ticker: "RBBN", // Good, first
+        link: "https://vhr-genband.wd1.myworkdayjobs.com/ribboncareers",
+        xpath: "//*[@id='mainContent']/div/div[2]/section/p",
+        ready: true,
+      },
+      {
+        ticker: "SWI", // Good, Last,
+        link: "https://jobs.solarwinds.com/jobs/",
+        xpath: "/html/body/div[7]/div[2]/div/div/p",
+        ready: true,
+      },
+      {
+        ticker: "SSTI", // Not done
+        link: "https://www.soundthinking.com/careers/",
+        xpath: "",
+        ready: false,
+      },
+      {
+        ticker: "VRNS", // Not done
+        link: "https://careers.varonis.com/",
+        xpath: "",
+        ready: false,
+      },
   ],
 
   news: [

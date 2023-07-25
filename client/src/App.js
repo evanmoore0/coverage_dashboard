@@ -45,13 +45,18 @@ function App() {
 
   // Get openings data
   async function getOpenings() {
-    const response = await fetch("/api/openings");
-    const body = await response.json();
+    let final = [];
+    for (let i = 0; i < constants.openings.length; i++) {
+      const response = await fetch("/jobs?iter=" + i.toString())
+        .then(async function (res) {
+          return await res.json();
+        })
+        .catch((err) => alert(err.message));
 
-    if (response.status !== 200) {
-      throw Error(body.message);
+      final.push(response.express);
     }
-    return body;
+
+    return final;
   }
 
   // Get news data
@@ -122,10 +127,10 @@ function App() {
       //   final.concat(data.express)
       // }).catch((err) => alert(err.message))
     }
-    final = final.flat(1)
+    final = final.flat(1);
     final = final.sort((a, b) => b.comp - a.comp);
 
-    setNewsData(final)
+    setNewsData(final);
 
     // if (response.status !== 200) {
     //   throw Error(body.message);
@@ -250,7 +255,11 @@ function App() {
             onClick={handleNewsClick}
             disabled={clickedNews}
           />
-          <button className={"News-Submit"} onClick={handleAllNewsClick}>
+          <button
+            className={"News-Submit"}
+            onClick={handleAllNewsClick}
+            disabled={clickedNews}
+          >
             ALL
           </button>
         </div>
@@ -261,10 +270,15 @@ function App() {
           ) : (
             <>
               {newsData?.map((comp, key) => (
-                <a className="new-container" key={key} href = {comp.link} target="_blank">
-                  <div className = "news-header">
+                <a
+                  className="new-container"
+                  key={key}
+                  href={comp.link}
+                  target="_blank"
+                >
+                  <div className="news-header">
                     <h1 className="news-pub">{comp["publisher"]}</h1>
-                    <h1 className = "news-ticker">{comp["company"]}</h1>
+                    <h1 className="news-ticker">{comp["company"]}</h1>
                   </div>
                   <h2 className="news-headline">{comp["headline"]}</h2>
                   <h3 className="news-description">{comp["description"]}</h3>

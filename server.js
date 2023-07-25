@@ -34,6 +34,20 @@ app.get("/ratings", async (req, res) => {
   });
 });
 
+app.get("/jobs", async (req, res) => {
+
+  let iter = parseInt(req.query.iter)
+
+  let response = await openings(constants.openings[iter])
+
+  res.json({
+    express: {
+      name: response.Company,
+      other: response.Openings
+    }
+  })
+})
+
 app.get("/news", async (req, res) => {
 
   const newsFirst =`https://www.google.com/search?q=${req.query.search}&tbm=nws&sa=X&ved=2ahUKEwjCpuCdz6CAAxXyM0QIHUWTCCsQ0pQJegQICxAB&biw=619&bih=642&dpr=2.2`
