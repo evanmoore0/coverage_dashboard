@@ -39,7 +39,6 @@ app.get("/jobs", async (req, res) => {
   let iter = parseInt(req.query.iter)
 
   let response = await openings(constants.openings[iter])
-  
   res.json({
     express: {
       name: response.Company,

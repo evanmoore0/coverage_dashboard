@@ -31,7 +31,6 @@ const ratings = async (comp) => {
     rating = await page.evaluate((el) => el.innerText, getXpath);
   } catch (error) {
     console.log(error);
-    alert(error.message);
     return { Company: comp.company, Rating: "N/A (Error)" };
   } finally {
     await browser.close();
@@ -72,7 +71,6 @@ const openings = async (comp) => {
     }
   } catch (error) {
     console.log(error);
-    alert(error.message)
     return { Company: comp.ticker, Other: "N/A" };
   } finally {
     await browser.close();
@@ -163,7 +161,6 @@ const news = async (link, company) => {
     }
   } catch (error) {
     console.log(error);
-    alert(error.message)
     return {
       publisher: "N/A",
       headline: "N/A",
