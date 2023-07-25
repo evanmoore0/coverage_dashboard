@@ -31,7 +31,7 @@ const ratings = async (comp) => {
     rating = await page.evaluate((el) => el.innerText, getXpath);
   } catch (error) {
     console.log(error);
-    alert(error);
+    alert(error.message);
     return { Company: comp.company, Rating: "N/A (Error)" };
   } finally {
     await browser.close();
@@ -55,9 +55,6 @@ const openings = async (comp) => {
   });
   try {
 
-
-    // console.log("HERE");
-    // console.log(comp);
     if (comp.ready) {
 
       const page = await browser.newPage();
@@ -72,17 +69,15 @@ const openings = async (comp) => {
       const [getXpath] = await page.$x(comp.xpath);
 
       openings = await page.evaluate((el) => el.innerText, getXpath);
-      console.log("Openings")
-      console.log(openings)
     }
   } catch (error) {
     console.log(error);
+    alert(error.message)
     return { Company: comp.ticker, Other: "N/A" };
   } finally {
     await browser.close();
   }
 
-  console.log("END")
   return { Company: comp.ticker, Other: openings };
 };
 
@@ -116,16 +111,6 @@ const news = async (link, company) => {
     const final_links = hrefs.filter(
       (item) => item.trim() !== "" && !item.includes("google.com")
     );
-
-    //HERHEHRHEHREHHRE
-    // const test = await page.$$('.WlydOe')
-
-    // for (let bruh in test) {
-    //     console.log(test[0].getProperty("href"))
-    //     console.log(test)
-    // }
-
-    // let test_n = await page.evaluate((el) => el.getProperty('href'), test)
 
     let news_rep = await page.evaluate((el) => el.innerText, getXpath);
 
@@ -165,11 +150,6 @@ const news = async (link, company) => {
           comp = moment(test).unix();
         }
 
-        // Console.log everything
-
-        console.log("HERE");
-        console.log(otherCount);
-
         final_news.push({
           publisher: new_news[i],
           headline: new_news[i + 1],
@@ -183,6 +163,7 @@ const news = async (link, company) => {
     }
   } catch (error) {
     console.log(error);
+    alert(error.message)
     return {
       publisher: "N/A",
       headline: "N/A",

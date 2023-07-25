@@ -5,34 +5,32 @@ import { ThreeDots } from "react-loader-spinner";
 
 import { constants } from "./constants";
 
-
-
 const test = [
   {
     name: "hi",
-    other: "bye"
+    other: "bye",
   },
   {
     name: "hi",
-    other: "bye"
+    other: "bye",
   },
   {
     name: "hi",
-    other: "bye"
+    other: "bye",
   },
   {
     name: "hi",
-    other: "bye"
+    other: "bye",
   },
   {
     name: "hi",
-    other: "bye"
+    other: "bye",
   },
   {
     name: "hi",
-    other: "bye"
+    other: "bye",
   },
-]
+];
 function App() {
   // Loading states
   const [openingsLoading, setOpeningsLoading] = useState(true);
@@ -60,8 +58,8 @@ function App() {
         .then(async function (res) {
           return await res.json();
         })
-        .catch((err) => alert(err.message))
-        final.push(response.express)
+        .catch((err) => alert(err.message));
+      final.push(response.express);
     }
     return final;
   }
@@ -73,12 +71,9 @@ function App() {
         .then(async function (res) {
           return await res.json();
         })
-        .catch((err) => alert(err.message))
-        final.push(response.express);
+        .catch((err) => alert(err.message));
+      final.push(response.express);
     }
-
-    console.log('final')
-    console.log(final)
     return final;
   }
 
@@ -225,7 +220,7 @@ function App() {
           onSecClick={onSecClick}
         />
 
-        <CompanyList data={data} loading = {loading}/>
+        <CompanyList data={data} loading={loading} />
       </div>
     );
   };
@@ -265,27 +260,44 @@ function App() {
         </div>
 
         <div className={"Input-Container"}>
-          <input
-            type="text"
-            value={newsSearch}
-            onChange={(e) => setNewsSearch(e.target.value)}
-            className={"News-Input"}
-            placeholder="search..."
-          />
-          <input
-            className={"News-Submit"}
-            type="submit"
-            value={clickedNews ? "loading" : "search"}
-            onClick={handleNewsClick}
-            disabled={clickedNews}
-          />
-          <button
-            className={"News-Submit"}
-            onClick={handleAllNewsClick}
-            disabled={clickedNews}
-          >
-            ALL
-          </button>
+          {clickedNews ? (
+            <div className="Loader">
+              <ThreeDots
+                height="20"
+                width="20"
+                radius="9"
+                color="black"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            </div>
+          ) : (
+            <>
+              <input
+                type="text"
+                value={newsSearch}
+                onChange={(e) => setNewsSearch(e.target.value)}
+                className={"News-Input"}
+                placeholder="search..."
+              />
+              <input
+                className={"News-Submit"}
+                type="submit"
+                value={clickedNews ? "loading" : "search"}
+                onClick={handleNewsClick}
+                disabled={clickedNews}
+              />
+              <button
+                className={"News-Submit"}
+                onClick={handleAllNewsClick}
+                disabled={clickedNews}
+              >
+                ALL
+              </button>
+            </>
+          )}
         </div>
 
         <div className={"News-Container"}>
