@@ -34,26 +34,13 @@ function App() {
         .then(async function (res) {
           return await res.json();
         })
-        .catch((err) => alert(err.message));
-
-      console.log("Response Express");
-      console.log(response.express);
-      final.push(response.express);
+        .catch((err) => alert(err.message))
+         
     }
-    console.log("Final");
-    console.log(final);
     return final;
   }
-
-
-  useEffect(() => {
-    console.log("FUCK")
-
-    console.log(jobData)
-  }, [jobData])
   // Get openings data
   async function getOpenings() {
-    console.log("GET openings");
     let final = [];
     for (let i = 0; i < constants.openings.length; i++) {
       const response = await fetch("/jobs?iter=" + i.toString())
@@ -62,14 +49,10 @@ function App() {
         })
         .catch((err) => alert(err.message));
 
-      final.push(response);
-      // console.log("Push")
-      // console.log(final)
+      final.push(response.express);
     }
 
-    // console.log("FINAL")
-    // console.log(final)
-    return final.express;
+    return final;
   }
 
   // Get news data
@@ -97,17 +80,14 @@ function App() {
   };
 
   const handleOpeningsClick = async () => {
-    // console.log("HERE")
-    // setData("WTFHFH");
+
     setClickedOpenings(true);
-    // setOpeningsLoading(false);
-    
-    // console.log("HERHEHHERHHEH")
-    // console.log(data)
 
      await getOpenings()
       .then((data) => {
         setJobData(data)
+        console.log("openings")
+        console.log(data)
       })
       .catch((err) => alert(err.message))
       .finally(() => {
@@ -161,8 +141,6 @@ function App() {
   };
 
   const CompanyList = ({ data }) => {
-    console.log("DATA IN COMPANY LIST ")
-    console.log(data)
     return (
       <>
         {glassDoorLoading ? (

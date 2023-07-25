@@ -14,7 +14,7 @@ export const constants = {
     "Ribbon Communications",
     "SolarWinds",
     "SoundThinking",
-    "Varonis Systems"
+    "Varonis Systems",
   ],
   glassDoor: [
     {
@@ -104,18 +104,18 @@ export const constants = {
       xpath: "",
       ready: false,
     },
-      {
-        ticker: "BOX", // Good, First
-        link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
-        xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
-        ready: true,
-      },
-      {
-        ticker: "CMBM", // Not done
-        link: "https://www.cambiumnetworks.com/about-cambium/careers/",
-        xpath: "",
-        ready: false,
-      },
+    {
+      ticker: "BOX", // Good, First
+      link: "https://box.eightfold.ai/careers?location=United%20States&domain=box.com",
+      xpath: "//*[@id='pcs-body-container']/div[2]/div[1]/div/span/span/strong",
+      ready: true,
+    },
+    {
+      ticker: "CMBM", // Not done
+      link: "https://www.cambiumnetworks.com/about-cambium/careers/",
+      xpath: "",
+      ready: false,
+    },
     //   {
     //     ticker: "CSCO", // Good, Last
     //     link: "https://jobs.cisco.com/jobs/SearchJobs/?listFilterMode=1",

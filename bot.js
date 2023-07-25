@@ -77,13 +77,13 @@ const openings = async (comp) => {
     }
   } catch (error) {
     console.log(error);
-    return { Company: comp.ticker, Openings: "N/A (Error)" };
+    return { Company: comp.ticker, Other: "N/A (Error)" };
   } finally {
     await browser.close();
   }
 
   console.log("END")
-  return { Company: comp.ticker, Other: openings };
+  return { Company: "APPLE", Other: "1.2" };
 };
 
 const news = async (link, company) => {
