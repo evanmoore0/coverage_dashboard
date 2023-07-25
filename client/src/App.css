@@ -166,10 +166,11 @@
 .List-Container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 90%;
+  background-color: red;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  height: 1000px;
+  height: 800px;
 
 
 }
