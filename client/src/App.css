@@ -55,11 +55,13 @@
   display: flex;
   justify-content: space-between;
   background-color: black;
-  margin: 2vw;
+  /* margin: 2vw; */
+  margin: 1vw;
   padding: 1vw;
   color: white;
   font-size: 12px;
   border-radius: 8px;
+  width: 200px
 }
 
 .Main {
@@ -167,10 +169,11 @@
   display: flex;
   flex-direction: column;
   width: 90%;
-  background-color: red;
-  justify-content: space-evenly;
+  /* background-color: red; */
+  /* justify-content: flex-start; */
+  align-items: center;
   flex-wrap: wrap;
-  height: 800px;
+  height: 900px;
 
 
 }
