@@ -5,32 +5,6 @@ import { ThreeDots } from "react-loader-spinner";
 
 import { constants } from "./constants";
 
-const test = [
-  {
-    name: "hi",
-    other: "bye",
-  },
-  {
-    name: "hi",
-    other: "bye",
-  },
-  {
-    name: "hi",
-    other: "bye",
-  },
-  {
-    name: "hi",
-    other: "bye",
-  },
-  {
-    name: "hi",
-    other: "bye",
-  },
-  {
-    name: "hi",
-    other: "bye",
-  },
-];
 function App() {
   // Loading states
   const [openingsLoading, setOpeningsLoading] = useState(true);
@@ -141,19 +115,11 @@ function App() {
           final.push(data.express);
         })
         .catch((err) => alert(err.message));
-
-      // getNews(company).then((data) => {
-      //   final.concat(data.express)
-      // }).catch((err) => alert(err.message))
     }
     final = final.flat(1);
     final = final.sort((a, b) => b.comp - a.comp);
 
     setNewsData(final);
-
-    // if (response.status !== 200) {
-    //   throw Error(body.message);
-    // }
 
     setNewsLoading(false);
     setClickedNews(false);

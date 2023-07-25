@@ -67,7 +67,16 @@ const openings = async (comp) => {
 
       const [getXpath] = await page.$x(comp.xpath);
 
+      console.log("GET x path")
+      console.log(getXpath)
+
       openings = await page.evaluate((el) => el.innerText, getXpath);
+
+      if (comp.ticker === "ANET") {
+        const jobs = openings.split(" ")
+        console.log("JOBS")
+        console.log(jobs)
+      }
     }
   } catch (error) {
     console.log(error);
@@ -100,7 +109,6 @@ const news = async (link, company) => {
       waitUntil: "domcontentloaded",
       timeout: 0,
     });
-    //*[@id="rso"]/div/div
 
     const [getXpath] = await page.$x('//*[@id="rso"]/div/div');
 
