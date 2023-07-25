@@ -56,12 +56,12 @@
   justify-content: space-between;
   background-color: black;
   /* margin: 2vw; */
-  margin: 1vw;
-  padding: 1vw;
+  margin: 20px;
+  padding: 10px;
   color: white;
   font-size: 12px;
   border-radius: 8px;
-  width: 200px
+  width: 25%
 }
 
 .Main {
@@ -168,7 +168,7 @@
 .List-Container {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 80%;
   /* background-color: red; */
   /* justify-content: flex-start; */
   align-items: center;
