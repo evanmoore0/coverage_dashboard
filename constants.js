@@ -146,7 +146,7 @@ const allLinks = {
         ticker: "SSTI", // Not done
         link: "https://www.soundthinking.com/careers/",
         xpath: "",
-        ready: false,
+        ready: true,
       },
       {
         ticker: "VRNS", // Not done

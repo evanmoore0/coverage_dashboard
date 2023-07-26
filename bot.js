@@ -72,7 +72,6 @@ const openings = async (comp) => {
           (el) => el.children
         );
         console.log("CHILDREN");
-        console.log(element);
 
 
         // DONE
@@ -83,7 +82,7 @@ const openings = async (comp) => {
 
         let element = await page.$eval(
           "body > div.hrmContainer > div.reqResult > table > tbody",
-          (el) => el.innerText
+          (el) => el.shadowRoot
         );
 
         element = element.split("\n");
@@ -101,7 +100,13 @@ const openings = async (comp) => {
 
         const occurances = element.match(/LEARN MORE/g);
 
+        console.log("OCJSOJDOFIJSOIJD")
+        console.log("CAMBIUM")
         openings = occurances.length;
+
+        console.log("OCCURANCES")
+        console.log(occurances)
+        console.log(openings)
 
 
       } else if (comp.ticker === "AVNW") {
@@ -138,7 +143,7 @@ const openings = async (comp) => {
         )
 
         console.log("ELEMENT TEXT")
-        console.log(element.split("\n"))
+        console.log(element)
 
       } else if (comp.ticker === "RBBN") {
 
@@ -155,6 +160,17 @@ const openings = async (comp) => {
         console.log(element)
         openings = element
 
+      } else if (comp.ticker === "SSTI") {
+        await page.waitForSelector(
+          "#jobs-list"
+        )
+
+        let element = await page.$eval(
+          '#jobs-list', (el) => el.textContent
+        )
+        console.log("STI ELEMENT")
+        console.log(element)
+        // openings = element
       } else {
         const [getXpath] = await page.$x(comp.xpath);
 
