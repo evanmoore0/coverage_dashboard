@@ -43,7 +43,6 @@ const openings = async (comp) => {
   const userAgent = new UserAgent();
   let openings = "N/A";
 
-
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -53,9 +52,9 @@ const openings = async (comp) => {
     ],
   });
   try {
-
     if (comp.ready) {
-
+      console.log("TIcker:");
+      console.log(comp.ticker);
       const page = await browser.newPage();
 
       // const page = await browser.newPage();
@@ -65,17 +64,101 @@ const openings = async (comp) => {
         timeout: 0,
       });
 
-      const [getXpath] = await page.$x(comp.xpath);
-
-      console.log("GET x path")
-      console.log(getXpath)
-
-      openings = await page.evaluate((el) => el.innerText, getXpath);
-
       if (comp.ticker === "ANET") {
-        const jobs = openings.split(" ")
-        console.log("JOBS")
-        console.log(jobs)
+        await page.waitForSelector("#smartWidget0");
+
+        let element = await page.$eval(
+          "#smartWidget0",
+          (el) => el.children
+        );
+        console.log("CHILDREN");
+        console.log(element);
+
+
+        // DONE
+      } else if (comp.ticker === "BLZE") {
+        await page.waitForSelector(
+          "body > div.hrmContainer > div.reqResult > table > tbody"
+        );
+
+        let element = await page.$eval(
+          "body > div.hrmContainer > div.reqResult > table > tbody",
+          (el) => el.innerText
+        );
+
+        element = element.split("\n");
+
+        openings = element.length;
+
+        // Done
+      } else if (comp.ticker === "CMBM") {
+        await page.waitForSelector("#lever-jobs-container");
+
+        let element = await page.$eval(
+          "#lever-jobs-container",
+          (el) => el.innerText
+        );
+
+        const occurances = element.match(/LEARN MORE/g);
+
+        openings = occurances.length;
+
+
+      } else if (comp.ticker === "AVNW") {
+        await page.waitForSelector("#tileCurrentOpenings");
+
+        let element = await page.$eval(
+          "#tileCurrentOpenings",
+          (el) => el.textContent
+        );
+
+        openings = element;
+      } else if (comp.ticker === "NTNX") {
+        await page.waitForSelector(
+          "#target_anchor_ > div > span > div > div > span > div > div > strong"
+        );
+
+        let element = await page.$eval(
+          "#target_anchor_ > div > span > div > div > span > div > div > strong",
+          (el) => el.textContent
+        );
+
+        openings = element
+
+        console.log("NTNX ELMENT");
+        console.log(element);
+      } else if (comp.ticker === "OOMA") {
+
+        await page.waitForSelector(
+          "#main"
+        )
+
+        let element = await page.$eval(
+          "#main", (el) => el.textContent
+        )
+
+        console.log("ELEMENT TEXT")
+        console.log(element.split("\n"))
+
+      } else if (comp.ticker === "RBBN") {
+
+       
+
+        await page.waitForSelector(
+          "#mainContent > div > div.css-uvpbop > section > p"
+        )
+
+        let element = await page.$eval(
+          "#mainContent > div > div.css-uvpbop > section > p", (el) => el.textContent
+        )
+
+        console.log(element)
+        openings = element
+
+      } else {
+        const [getXpath] = await page.$x(comp.xpath);
+
+        openings = await page.evaluate((el) => el?.innerText, getXpath);
       }
     }
   } catch (error) {
@@ -85,6 +168,9 @@ const openings = async (comp) => {
     await browser.close();
   }
 
+  console.log("COMPANY FINAL");
+  console.log(comp.ticker);
+  console.log(openings);
   return { Company: comp.ticker, Other: openings };
 };
 
