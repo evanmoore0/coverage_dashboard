@@ -47,6 +47,7 @@
   border-radius: 8px;
   color: black;
   width: 300px;
+  flex-direction: row;
   /* margin-bottom: 5vw; */
 }
 
@@ -256,7 +257,122 @@ a:active { text-decoration: none; }
 
 .news-ticker {
   color: lightblue;
-  font-size: 10px;
   font-weight: bold;
   font-size: 12px;
+}
+
+
+.Stock-List-Container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  border-top: 1px solid #0063a3;
+  border-bottom: 1px solid #0063a3;
+
+}
+
+.submit-cont {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+.Ticker-List-Container {
+  display: flex;
+  margin: 10px;
+}
+
+.Ticker-List-Text {
+
+  color: #0063a3;
+  font-weight: bold;
+  font-size: 12px;
+
+}
+
+.Single-Ticker {
+  padding: 4px;
+  margin: 4px;
+  border: 1px solid #0063a3;
+  display: flex;
+
+}
+
+.List-Upload-Clear-Container {
+  display: flex;
+  flex-direction: row;
+}
+
+.Clear-Button {
+  margin: 1vh;
+  display: flex;
+  font-size: 12px;
+  padding: 1vh;
+  background: none;
+  background-color: red;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid white;
+  color: white;
+}
+
+
+.Name {
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+  margin-top: 20px;
+  width: 100px;
+  border-bottom: 1px solid;
+}
+
+
+.Ticker-Button {
+  display: flex;
+  background-color: white;
+  border: 1px solid #0063a3;
+  background: none;
+  font-size: 12;
+  color: #0063a3;
+
+  border-radius: 8px;
+  cursor: pointer;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lists-Cont {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 10px;
+  border-top:1px solid #0063a3;
+  border-bottom: 1px solid #0063a3;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: space-evenly;
+
+}
+
+.Ticker {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-radius: 8px;
+  justify-content: center;
+}
+
+.Tick-Text {
+  font-size: 12px;
+}
+
+.Rand-Container {
+  display: flex;
+  flex-direction: column;
 }

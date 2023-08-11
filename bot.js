@@ -161,9 +161,9 @@ const openings = async (comp) => {
         openings = element
 
       } else if (comp.ticker === "SSTI") {
-        await page.waitForSelector(
-          "#jobs-list"
-        )
+        // await page.waitForSelector(
+        //   "#jobs-list"
+        // )
 
         let element = await page.$eval(
           '#jobs-list', (el) => el.textContent

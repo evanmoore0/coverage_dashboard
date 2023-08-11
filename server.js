@@ -1,3 +1,8 @@
+
+// Import the functions you need from the SDKs you need
+
+
+
 //IMPORTS
 const express = require("express"); //Line 1
 const app = express(); //Line 2
@@ -5,6 +10,8 @@ const path = require("path");
 var cors = require("cors");
 const { ratings, news, openings } = require("./bot");
 const constants = require("./constants");
+
+const {stockListRef, setDoc, doc, getDocs, listQuery, deleteDoc, db} = require("./firebase");
 
 const PORT = process.env.PORT || 8000;
 
@@ -18,6 +25,46 @@ app.use(express.static(path.join(__dirname, "client/build")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
+
+
+app.get("/upload-list", async (req, res) => {
+  // await setDoc(doc(stockListRef, "Name"), {
+  //   tickers: ["CMBM", "ANET"]
+  // })
+  console.log("In upload list")
+  console.log(req.query.tickers.split(","))
+
+  let request = req.query.tickers.split(",")
+
+  let name = request[0]
+
+  request.shift()
+
+  await setDoc(doc(stockListRef, name), {
+    tickers: request
+  })
+})
+
+app.get("/delete-list", async(req, res) => {
+  await deleteDoc(doc(db, "stockList", req.query.id))
+})
+
+app.get("/get-lists", async(req, res) => {
+  const querySnapshot = await getDocs(listQuery)
+
+  let finalList = []
+  querySnapshot.forEach((doc) => {
+    finalList.push({
+      name: doc.id,
+      data: doc.data()
+    })
+  })
+
+  res.json({
+    lists: finalList
+  })
+})
+
 
 // Glassdoor Point
 app.get("/ratings", async (req, res) => {

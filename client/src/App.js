@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ThreeDots } from "react-loader-spinner";
 
@@ -16,12 +16,44 @@ function App() {
   const [clickedGlassdoor, setClickedGlassdoor] = useState(false);
   const [clickedNews, setClickedNews] = useState(false);
 
+  const [clickedCreateList, setClickedCreateList] = useState(false);
+
   // Data states
   const [glassdoorData, setGlassdoorData] = useState(null);
   const [jobData, setJobData] = useState(null);
   const [newsData, setNewsData] = useState(null);
+  const [listInputVal, setListInputVal] = useState("");
+  const [newTickerList, setNewTickerList] = useState([]);
 
   const [newsSearch, setNewsSearch] = useState("");
+
+  const [tickerLists, setTickerLists] = useState(null);
+
+  const [listName, setListName] = useState("");
+
+  const [displayListInfo, setDisplayListInfo] = useState(false);
+
+  async function Test() {
+    await fetch("/test");
+  }
+
+  async function GetLists() {
+    await fetch("/get-lists")
+      .then(async function (res) {
+        return await res.json();
+      })
+      .then((data) => {
+        setTickerLists(data.lists);
+        console.log("Set ticker lists")
+        console.log(tickerLists)
+            });
+  }
+
+  useEffect(() => {
+    (async () => {
+      await GetLists();
+    })();
+  }, []);
 
   // Get the Ratings data
   async function getRatings() {
@@ -101,12 +133,12 @@ function App() {
       });
   };
 
-  const handleAllNewsClick = async () => {
+  const handleAllNewsClick = async (tickerList) => {
     setClickedNews(true);
 
     let final = [];
 
-    for (let company of constants.news_comps) {
+    for (let company of tickerList) {
       await fetch("/allnews?search=" + company)
         .then(async function (res) {
           return await res.json();
@@ -123,6 +155,36 @@ function App() {
 
     setNewsLoading(false);
     setClickedNews(false);
+  };
+
+  const handleListVal = () => {
+    if (listInputVal.trim().length > 0) {
+      setNewTickerList((prevState) => [...prevState, listInputVal]);
+      setListInputVal("");
+    }
+  };
+
+  const handleClickUpload = async () => {
+
+
+    if (newTickerList.length == 0) {
+      alert("Add stocks to the list");
+    } else if (listName.length == 0) {
+      alert("Add a name");
+    } else {
+      setClickedCreateList(false);
+
+      await fetch("/upload-list?tickers=" + [listName, newTickerList])
+
+      setNewTickerList([]);
+      setListName("");
+    }
+  };
+
+  const handleDelete = async (list) => {
+    await fetch("/delete-list?id=" + list).finally(async () => {
+      await GetLists();
+    });
   };
 
   const CompanyList = ({ data, loading }) => {
@@ -222,7 +284,114 @@ function App() {
 
       <section className="bottom-container">
         <div className="Main-Content">
-          <h2 className="Subtitle">{"ShotSpotter News"}</h2>
+          <h2 className="Subtitle">{"News"}</h2>
+
+          <button
+            className={"News-Submit"}
+            onClick={() => setClickedCreateList(true)}
+            disabled={clickedCreateList}
+          >
+            Create
+          </button>
+
+          <button
+            className="News-Submit"
+            onClick={() =>
+              displayListInfo
+                ? setDisplayListInfo(false)
+                : setDisplayListInfo(true)
+            }
+          >
+            View Lists
+          </button>
+        </div>
+
+        {clickedCreateList ? (
+          <div className={"Stock-List-Container"}>
+            <input
+              value={listName}
+              onChange={(e) => setListName(e.target.value)}
+              placeholder="Name"
+              className="Name"
+            />
+
+            <div className={"Input-Container"}>
+              <input
+                className={"News-Input"}
+                value={listInputVal}
+                onChange={(e) => setListInputVal(e.target.value)}
+                placeholder="..."
+              />
+              <input
+                className={"News-Submit"}
+                type="submit"
+                onClick={handleListVal}
+                value="Add"
+              />
+            </div>
+
+            <div className={"Ticker-List-Container"}>
+              {newTickerList?.map((comp, key) => (
+                <div className={"Single-Ticker"} key = {key}>
+                  <h1 className={"Ticker-List-Text"}>{comp}</h1>
+                </div>
+              ))}
+            </div>
+
+            <div className={"List-Upload-Clear-Container"}>
+              <button
+                className="Clear-Button"
+                onClick={() => {
+                  setNewTickerList([]);
+                  setListName("");
+                  setListInputVal("");
+                }}
+              >
+                Clear
+              </button>
+
+              <button className="Button" onClick={handleClickUpload}>
+                Upload
+              </button>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div className="Lists-Cont">
+
+          {tickerLists?.map((list, key) => (
+            <div className="Ticker" key={key}>
+              <button
+                className="Ticker-Button"
+                onClick = {() => handleAllNewsClick(list.data.tickers)}
+              >
+                {list.name}
+              </button>
+
+              {displayListInfo ? (
+
+                
+                <div className="Rand-Container">
+                  {list?.data?.tickers?.map((ticker, key) => (
+                    <h1 className="Tick-Text" key = {key}>{ticker}</h1>
+                  ))}
+
+                  <button
+                    className="Clear-Button"
+                    onClick={() => {
+                      handleDelete(list.name);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+          ))}
         </div>
 
         <div className={"Input-Container"}>
@@ -255,13 +424,6 @@ function App() {
                 onClick={handleNewsClick}
                 disabled={clickedNews}
               />
-              <button
-                className={"News-Submit"}
-                onClick={handleAllNewsClick}
-                disabled={clickedNews}
-              >
-                ALL
-              </button>
             </>
           )}
         </div>
