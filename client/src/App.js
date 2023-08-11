@@ -253,6 +253,18 @@ function App() {
     );
   };
 
+  const handleClickedCreate = () => {
+    
+    if (clickedCreateList) {
+      setClickedCreateList(false)
+      setListName("")
+      setListInputVal("")
+      setNewTickerList([])
+    } else {
+      setClickedCreateList(true)
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -288,10 +300,11 @@ function App() {
 
           <button
             className={"News-Submit"}
-            onClick={() => setClickedCreateList(true)}
-            disabled={clickedCreateList}
+            onClick={() => handleClickedCreate()}
           >
-            Create
+            {
+              clickedCreateList ? "Close" : "Create"
+            }
           </button>
 
           <button

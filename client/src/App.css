@@ -268,7 +268,7 @@ a:active { text-decoration: none; }
   width: 100%;
   align-items: center;
   border-top: 1px solid #0063a3;
-  border-bottom: 1px solid #0063a3;
+  /* border-bottom: 1px solid #0063a3; */
 
 }
 
