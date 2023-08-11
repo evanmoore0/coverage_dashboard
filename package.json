@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "node node_modules/puppeteer/install.js && cd client && npm install && npm run build && cd .. && npm prune"
+    "heroku-postbuild": "node node_modules/puppeteer/install.js && cd client && npm install && npm run build",
+    "heroku-cleanup": "rm -rf node_modules src"
   },
   "keywords": [],
   "author": "",
